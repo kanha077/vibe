@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding - Submission Portal</title>
+    
+    <!-- [MODIFIED] Added Favicon -->
+    <link rel="icon" href="logo.png" type="image/png">
+    
+    <!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Font: Inter & NEW Orbitron (replaces Titillium Web) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN --><script src="https://unpkg.com/lucide-dev@latest"></script>
+
+    <style>
+        /* Custom styles for the "Transformer" theme */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a1a; 
+            color: #E0E0E0; /* Light gray for general text */
+            
+            /* [MODIFIED] Updated background image gradient to be more transparent */
+            background-image: linear-gradient(45deg, rgba(10, 10, 30, 0.75) 0%, rgba(26, 26, 46, 0.85) 100%), 
+                             url('https://image.pollinations.ai/prompt/Optimus%20Prime%20and%20Bumblebee%20standing%20back-to-back%20with%20swords%20crossed%20in%20a%20cinematic%20futuristic%20style?width=1280&height=800&seed=123');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center; /* Added for better image centering */
+        }
+
+        /* --- Font and Theming (UPDATED) --- */
+        h1, h2, .font-transformer {
+            font-family: 'Orbitron', sans-serif; /* <-- CHANGED from Titillium Web */
+            text-transform: uppercase; /* <-- ADDED to match image style */
+            letter-spacing: 0.05em; /* <-- ADDED for a more stylized look */
+        }
+
+        /* Animated border effect for main containers */
+        .tech-container {
+            position: relative;
+            background: rgba(10, 10, 30, 0.7); /* Darker, slightly transparent */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(70, 70, 100, 0.4);
+            box-shadow: 0 0 30px rgba(70, 70, 100, 0.4);
+            overflow: hidden; /* Hide the glowing border overflow */
+        }
+
+        .tech-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(100, 255, 255, 0.5), transparent 30%, transparent 70%, rgba(100, 255, 255, 0.5), transparent);
+            animation: border-anim 6s linear infinite;
+            z-index: 0;
+            opacity: 0.7;
+        }
+
+        .tech-container::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: rgba(10, 10, 30, 0.9); /* Inner layer */
+            z-index: 1;
+        }
+        
+        /* Ensures content is above the pseudo-elements */
+        .tech-container > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes border-anim {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header animation (REMOVED) */
+        /* @keyframes header-glow ... (Removed) */
+        
+        .header-title {
+             /* animation: header-glow 3s ease-in-out infinite alternate; */ /* <-- REMOVED */
+             /* Added a subtle static shadow to replace the glow */
+             text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Pulsing animation for the timer - more intense glow */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 100, 150, 0.5), 0 0 30px rgba(255, 100, 150, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(255, 100, 150, 0.8), 0 0 50px rgba(255, 100, 150, 0.6); }
+        }
+        
+        #timer-display {
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+
+        /* Custom focus ring for inputs */
+        input:focus, textarea:focus {
+            box-shadow: 0 0 15px rgba(100, 255, 255, 0.5); /* Cyan glow */
+            border-color: #0ff !important; /* Cyan border */
+        }
+        
+        /* Submit button loading spinner */
+        .spinner {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            width: 1rem;
+            height: 1rem;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Generic glowing button effect */
+        .glowing-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+        .glowing-btn:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.7), 0 0 40px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+    </style>
+</head>
+<body class="text-gray-200 min-h-screen flex flex-col">
+
+    <!-- Header Section -->
+    <header class="w-full bg-gray-950/80 border-b border-cyan-700/50 shadow-lg py-4 relative z-20 backdrop-blur-sm">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <div class="flex items-center">
+                <!-- College Logo Placeholder --><img src="logo.png" alt="College Logo" class="h-10 w-10 mr-3 rounded-full border border-cyan-500 p-0.5">
+                <span class="font-transformer text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500 header-title">
+                    <span class="text-white">VIBE</span> CODING
+                </span>
+            </div>
+            <nav class="hidden md:block">
+                <!-- [MODIFIED] Header button styles and font -->
+                <ul class="flex space-x-4 items-center">
+                    <li><a href="index.html" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md text-gray-300 border border-transparent hover:border-cyan-700 hover:bg-cyan-900/50 transition-all duration-300">Home</a></li>
+                    <li><a href="submission.html" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md bg-cyan-600 text-gray-900 font-bold border border-cyan-600 transition-all duration-300">Submit</a></li>
+                    <li><a href="#" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md text-gray-300 border border-transparent hover:border-cyan-700 hover:bg-cyan-900/50 transition-all duration-300">Rules</a></li>
+                </ul>
+                <!-- [END MODIFICATION] -->
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main content area, sits above video -->
+    <main class="flex-grow w-full flex flex-col items-center relative z-10 p-4 md:p-8">
+
+        <!-- Timer Section -->
+        <section id="timer-section" class="tech-container w-full max-w-3xl p-6 md:p-8 rounded-xl text-center my-10">
+            
+            <!-- Start Button --><div id="start-button-container" class="relative z-20">
+                <h2 class="text-2xl font-bold font-transformer text-yellow-400 mb-4">INITIATE SEQUENCE</h2>
+                <p class="text-gray-300 mb-6">Activate the 48-hour submission window. This action is irreversible.</p>
+                <button id="start-button" class="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold py-3 px-8 rounded-lg text-lg shadow-lg glowing-btn hover:shadow-yellow-500/50 transition-all duration-300 transform hover:scale-105 font-transformer"> <!-- Added font-transformer -->
+                    DEPLOY COUNTDOWN
+                </button>
+            </div>
+
+            <!-- Timer Display --><div id="timer-display" class="relative z-20 hidden rounded-lg p-6 bg-rose-900/30 border border-rose-600">
+                <h2 class="text-2xl font-bold font-transformer text-rose-400 mb-4 tracking-wider">SUBMISSION MATRIX ACTIVE</h2>
+                <p class="text-lg text-gray-200 mb-3">Time Remaining for Data Transmission:</p>
+                <div class="flex justify-center space-x-3 sm:space-x-4 text-white">
+                    <div class="text-center bg-gray-900/70 p-4 rounded-lg min-w-[70px] sm:min-w-[80px] border border-gray-700 shadow-inner shadow-gray-800/50">
+                        <span id="timer-days" class="text-3xl sm:text-4xl font-bold font-transformer">00</span>
+                        <span class="block text-xs sm:text-sm text-gray-400 mt-1">DAYS</span>
+                    </div>
+                    <div class="text-center bg-gray-900/70 p-4 rounded-lg min-w-[70px] sm:min-w-[80px] border border-gray-700 shadow-inner shadow-gray-800/50">
+                        <span id="timer-hours" class="text-3xl sm:text-4xl font-bold font-transformer">00</span>
+                        <span class="block text-xs sm:text-sm text-gray-400 mt-1">HOURS</span>
+                    </div>
+                    <div class="text-center bg-gray-900/70 p-4 rounded-lg min-w-[70px] sm:min-w-[80px] border border-gray-700 shadow-inner shadow-gray-800/50">
+                        <span id="timer-minutes" class="text-3xl sm:text-4xl font-bold font-transformer">00</span>
+                        <span class="block text-xs sm:text-sm text-gray-400 mt-1">MINUTES</span>
+                    </div>
+                    <div class="text-center bg-gray-900/70 p-4 rounded-lg min-w-[70px] sm:min-w-[80px] border border-gray-700 shadow-inner shadow-gray-800/50">
+                        <span id="timer-seconds" class="text-3xl sm:text-4xl font-bold font-transformer">00</span>
+                        <span class="block text-xs sm:text-sm text-gray-400 mt-1">SECONDS</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Timer Ended Message --><div id="timer-ended" class="relative z-20 hidden p-6 rounded-lg bg-red-900/50 border border-red-700">
+                 <h2 class="text-3xl font-bold font-transformer text-red-400 tracking-wider">TRANSMISSION OVERRIDE</h2>
+                 <p class="text-lg text-gray-200 mt-2">The 48-hour submission window has closed. Data streams are terminated.</p>
+            </div>
+        </section>
+
+        <!-- Submission Form Section -->
+        <section id="submission-portal" class="w-full max-w-4xl p-4 md:p-8 flex flex-col items-center">
+            <div class="tech-container w-full p-6 md:p-10 rounded-xl">
+                <form id="submission-form" class="space-y-8 relative z-20">
+                    <h2 class="text-3xl font-bold font-transformer text-center text-cyan-300 mb-6">PROJECT DATA UPLOAD</h2>
+
+                    <!-- Team & Project Info --><fieldset class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="teamName" class="block text-sm font-medium text-gray-300 mb-2">Team Designation</label>
+                            <div class="relative">
+                                <i data-lucide="users" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <input type="text" id="teamName" name="teamName" class="pl-10 w-full bg-gray-900/70 border border-gray-700 rounded-lg p-2.5 text-white focus:outline-none focus:ring-1 focus:border-cyan-500" placeholder="e.g., The Codeformers" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="projectTitle" class="block text-sm font-medium text-gray-300 mb-2">Project Codename</label>
+                             <div class="relative">
+                                <i data-lucide="lightbulb" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <input type="text" id="projectTitle" name="projectTitle" class="pl-10 w-full bg-gray-900/70 border border-gray-700 rounded-lg p-2.5 text-white focus:outline-none focus:ring-1 focus:border-cyan-500" placeholder="e.g., Project Optimus" required>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <div>
+                        <label for="projectDescription" class="block text-sm font-medium text-gray-300 mb-2">Project Manifest (Description)</label>
+                        <textarea id="projectDescription" name="projectDescription" rows="4" class="w-full bg-gray-900/70 border border-gray-700 rounded-lg p-2.5 text-white focus:outline-none focus:ring-1 focus:border-cyan-500" placeholder="Articulate your project's function, methodologies, and core technologies." required></textarea>
+                    </div>
+
+                    <!-- Team Members --><fieldset class="space-y-4">
+                        <h3 class="text-lg font-semibold font-transformer text-gray-300">OPERATIVE PROFILES (Name & ID)</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" name="member1" class="w-full bg-gray-900/70 border border-gray-700 rounded-lg p-2.5 text-white focus:outline-none focus:ring-1 focus:border-cyan-500" placeholder="Operative 1 (Required)" required>
+                            <input type="text" name="member2" class="w-full bg-gray-900/70 border border-gray-700 rounded-lg p-2.5 text-white focus:outline-none focus:ring-1 focus:border-cyan-500" placeholder="Operative 2 (Optional)">
+                            <input type="text" name="member3" class="w-full bg-gray-900/70 border border-gray-700 rounded-lg p-2.5 text-white focus:outline-none focus:ring-1 focus:border-cyan-500" placeholder="Operative 3 (Optional)">
+                            <input type="text" name="member4" class="w-full bg-gray-900/70 border border-gray-700 rounded-lg p-2.5 text-white focus:outline-none focus:ring-1 focus:border-cyan-500" placeholder="Operative 4 (Optional)">
+                        </div>
+                    </fieldset>
+
+                    <!-- Links --><fieldset class="space-y-4">
+                        <h3 class="text-lg font-semibold font-transformer text-gray-300">PROJECT DATASTREAM LINKS</h3>
+                         <div>
+                            <label for="githubLink" class="block text-sm font-medium text-gray-300 mb-2">GitHub Repository (Source Code Access)</label>
+                            <div class="relative">
+                                <i data-lucide="github" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <input type="url" id="githubLink" name="githubLink" class="pl-10 w-full bg-gray-900/70 border border-gray-700 rounded-lg p-2.5 text-white focus:outline-none focus:ring-1 focus:border-cyan-500" placeholder="https://github.com/..." required>
+                            </div>
+                        </div>
+                         <div>
+                            <label for="demoLink" class="block text-sm font-medium text-gray-300 mb-2">Visual Transmission Link (Demo Video - e.g., Loom, YouTube)</label>
+                            <div class="relative">
+                                <i data-lucide="video" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <input type="url" id="demoLink" name="demoLink" class="pl-10 w-full bg-gray-900/70 border border-gray-700 rounded-lg p-2.5 text-white focus:outline-none focus:ring-1 focus:border-cyan-500" placeholder="https://www.loom.com/..." required>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Form Message --><div id="form-message" class="text-center text-lg p-3 rounded-lg hidden relative z-20"></div>
+
+                    <!-- Submit Button --><div class="text-center">
+                        <button id="submit-button" type="submit" class="w-full md:w-1/2 bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-700 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-lg text-lg shadow-lg glowing-btn hover:shadow-cyan-500/50 transition-all duration-300 transform hover:scale-105 flex items-center justify-center mx-auto disabled:opacity-50 disabled:cursor-wait">
+                            <span id="submit-text">TRANSMIT PROJECT DATA</span>
+                            <span id="submit-spinner" class="spinner ml-2 hidden"></span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="w-full bg-gray-950/80 border-t border-cyan-700/50 py-6 relative z-10 backdrop-blur-sm">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400 text-sm">
+            <p>&copy; 2023 Vibe Coding Initiative. All Rights Reserved. // Cybernetic Division.</p>
+            <div class="mt-2 space-x-4">
+                <a href="#" class="hover:text-cyan-400 transition-colors">Privacy Policy</a>
+                <span class="text-gray-600">|</span>
+                <a href="#" class="hover:text-cyan-400 transition-colors">Terms of Service</a>
+                <span class="text-gray-600">|</span>
+                <a href="#" class="hover:text-cyan-400 transition-colors">Support Matrix</a>
+            </div>
+            <p class="mt-3 text-xs text-gray-500">
+                Designated for Vibe Coding College - Activating Creative Protocols.
+            </DDesignated for Vibe Coding College - Activating Creative Protocols.
+            </p>
+        </div>
+    </footer>
+
+    <!-- SHARED COUNTDOWN SCRIPT -->
+    <script src="countdown.js" defer></script>
+    
+    <script>
+        // Activate Lucide Icons
+        lucide.createIcons();
+
+        // === SCRIPT CONFIGURATION ===
+        // 1. Create your Google Apps Script (see instructions below)
+        // 2. Paste the Web App URL here.
+        const GOOGLE_APPS_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+
+        /*
+        ==================================================================
+        HOW TO CREATE THE GOOGLE APPS SCRIPT FOR GOOGLE SHEETS
+        ==================================================================
+        ... (Instructions remain the same) ...
+        */
+        
+        // === TIMER SCRIPT ===
+        // THIS LOGIC IS NOW IN countdown.js
+        // document.addEventListener('DOMContentLoaded', () => { ... });
+
+
+        // === FORM SUBMISSION SCRIPT ===
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('submission-form');
+            const submitButton = document.getElementById('submit-button');
+            const submitText = document.getElementById('submit-text');
+            const submitSpinner = document.getElementById('submit-spinner');
+            const formMessage = document.getElementById('form-message');
+
+            // Check if form exists before adding listener (it won't be on index.html)
+            if(form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    if (GOOGLE_APPS_SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
+                        showFormMessage('ERROR: Please configure the GOOGLE_APPS_SCRIPT_URL in the HTML file first.', 'error');
+                        return;
+                    }
+
+                    // Show loading state
+                    submitButton.disabled = true;
+                    submitText.classList.add('hidden');
+                    submitSpinner.classList.remove('hidden');
+                    formMessage.classList.add('hidden');
+
+                    const formData = new FormData(form);
+
+                    // Use exponential backoff for retries
+                    fetchWithBackoff(GOOGLE_APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        body: formData,
+                    }, 3) // 3 retries
+                    .then(response => {
+                        if (!response.ok) {
+                            // Try to parse error from Google Script if available
+                            return response.json().then(err => {
+                                throw new Error(err.message || 'Network response was not ok.');
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.result === 'success') {
+                            showFormMessage('PROJECT TRANSMITTED: Data received successfully! Good luck, operatives!', 'success');
+                            form.reset();
+                        } else {
+                            throw new Error(data.message || 'An unknown error occurred during transmission.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Transmission Error:', error);
+                        showFormMessage(`TRANSMISSION FAILED: ${error.message}. Recalibrating... Please try again.`, 'error');
+                    })
+                    .finally(() => {
+                        // Hide loading state
+                        submitButton.disabled = false;
+                        submitText.classList.remove('hidden');
+                        submitSpinner.classList.add('hidden');
+                    });
+                });
+            }
+
+            // Helper function to show form messages
+            function showFormMessage(message, type) {
+                if(!formMessage) return; // Don't run if element doesn't exist
+                formMessage.textContent = message;
+                if (type === 'success') {
+                    formMessage.className = 'text-center text-lg p-3 rounded-lg bg-emerald-800/50 border border-emerald-600 text-emerald-300';
+                } else {
+                    formMessage.className = 'text-center text-lg p-3 rounded-lg bg-red-800/50 border border-red-600 text-red-300';
+                }
+                formMessage.classList.remove('hidden');
+            }
+
+            // Helper function for fetch with exponential backoff
+            async function fetchWithBackoff(url, options, retries = 3, delay = 1000) {
+                for (let i = 0; i < retries; i++) {
+                    try {
+                        const response = await fetch(url, options);
+                        if (response.status === 500 || response.status === 503 || response.status === 429) {
+                            // Retry on server errors or rate limiting
+                            throw new Error(`Server error: ${response.status}`);
+                        }
+                        return response; // Success
+                    } catch (error) {
+                        if (i === retries - 1) throw error; // Last retry failed
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2; // Exponential backoff
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
+
+
+

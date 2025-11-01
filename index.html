@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Viewport meta tag is essential for mobile responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding - contest by mozila X phoenix</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    
+    <!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Font: Inter & NEW Orbitron (replaces Titillium Web) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN --><script src="https://unpkg.com/lucide-dev@latest"></script>
+
+    <style>
+        /* --- General Body Styles --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a1a; /* Dark background fallback */
+            color: #E0E0E0; /* Light gray for general text */
+        }
+
+        /* --- Optimus Prime Background --- */
+        .optimus-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -2;
+            background-image: url('https://image.pollinations.ai/prompt/Optimus%20Prime%20standing%20in%20front%20of%20pyramids?width=1024&height=1024&seed=234'); /* Your Optimus Prime image */
+            /* Fallback placeholder image */
+            background-image: linear-gradient(rgba(10, 10, 26, 0.7), rgba(10, 10, 26, 0.7)), url('https://placehold.co/1024x1024/0a0a1a/e0e0e0?text=Vibe+Coding');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /* Dark overlay for readability */
+            background-blend-mode: multiply;
+            background-color: rgba(10, 10, 26, 0.7); /* Dark blue/black overlay */
+        }
+        
+        /* Handle image error by showing solid background */
+        .optimus-background[style*="url('https://image.pollinations.ai"] {
+            background-image: linear-gradient(rgba(10, 10, 26, 0.7), rgba(10, 10, 26, 0.7)), url('https://image.pollinations.ai/prompt/Optimus%20Prime%20standing%20in%20front%20of%20pyramids?width=1024&height=1024&seed=234');
+        }
+        .optimus-background.error {
+             background-image: linear-gradient(rgba(10, 10, 26, 0.9), rgba(10, 10, 26, 0.9)), url('https://placehold.co/1024x1024/0a0a1a/e0e0e0?text=Background+Error');
+        }
+
+
+        /* --- Gradient Overlay (Above Optimus, below content) --- */
+        .gradient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1; /* Above Optimus, below content */
+            background: linear-gradient(
+                135deg,
+                rgba(0, 150, 200, 0.1) 0%,  /* Subtle blue-cyan */
+                rgba(150, 0, 200, 0.1) 50%, /* Subtle purple */
+                rgba(0, 150, 200, 0.1) 100%
+            );
+            pointer-events: none; /* Allows clicks to pass through
+ */
+        }
+        /* --- Font and Theming (UPDATED) --- */
+        h1, h2, .font-transformer {
+            font-family: 'Orbitron', sans-serif; /* <-- CHANGED from Titillium Web */
+            text-transform: uppercase; /* <-- ADDED to match image style */
+            letter-spacing: 0.05em; /* <-- ADDED for a more stylized look */
+        }
+
+        /* --- Animated Border Effect for Containers --- */
+        .tech-container {
+            position: relative;
+            background: rgba(10, 10, 30, 0.7); /* Darker, slightly transparent */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(70, 70, 100, 0.4);
+            box-shadow: 0 0 30px rgba(70, 70, 100, 0.4);
+            overflow: hidden; /* Hide the glowing border overflow */
+        }
+        .tech-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(100, 255, 255, 0.5), transparent 30%, transparent 70%, rgba(100, 255, 255, 0.5), transparent);
+            animation: border-anim 6s linear infinite;
+            z-index: 0;
+            opacity: 0.7;
+        }
+        .tech-container::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: rgba(10, 10, 30, 0.9); /* Inner layer */
+            z-index: 1;
+        }
+        .tech-container > * {
+            position: relative;
+            z-index: 2;
+        }
+        @keyframes border-anim {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- Header Animation (REMOVED) --- */
+        .header-title {
+             /*text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);*/ /* Removed for cleaner mobile look */
+        }
+        
+        /* --- Entrance Animations --- */
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fade-in-up 0.8s ease-out forwards;
+            opacity: 0; /* Start hidden */
+        }
+        .animate-fade-in-up.delay-1 { animation-delay: 0.2s; }
+        .animate-fade-in-up.delay-2 { animation-delay: 0.4s; }
+        .animate-fade-in-up.delay-3 { animation-delay: 0.6s; }
+
+        /* --- Generic Glowing Button Effect --- */
+        .glowing-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+        .glowing-btn:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.7), 0 0 40px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        /* --- Pulsing Animation for Main Button --- */
+        @keyframes pulse-main-btn {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.7), 0 0 40px rgba(0, 255, 255, 0.5);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 30px rgba(0, 255, 255, 0.9), 0 0 60px rgba(0, 255, 255, 0.7);
+            }
+        }
+        .pulse-main-btn {
+            animation: pulse-main-btn 3s infinite ease-in-out;
+        }
+
+        /* --- Pulsing Animation for Timer (Rose/Red theme) --- */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 100, 150, 0.5), 0 0 30px rgba(255, 100, 150, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(255, 100, 150, 0.8), 0 0 50px rgba(255, 100, 150, 0.6); }
+        }
+        #timer-display {
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+
+    </style>
+</head>
+<body class="text-gray-200 min-h-screen flex flex-col">
+
+    <!-- Optimus Prime Background Image -->
+    <div class="optimus-background" style="background-image: url('https://image.pollinations.ai/prompt/Optimus%20Prime%20standing%20in%20front%20of%20pyramids?width=1024&height=1024&seed=234');" onerror="this.classList.add('error')"></div>
+    
+    <!-- Subtle Gradient Overlay --><div class="gradient-overlay"></div>
+    
+    <!-- Header Section -->
+    <header class="w-full bg-gray-950/80 border-b border-cyan-700/50 shadow-lg py-4 relative z-20 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            
+            <!-- Logo and Title -->
+            <div class="flex items-center">
+                <!-- College Logo Placeholder -->
+                <img src="logo.png" alt="College Logo" class="h-10 w-10 mr-3 rounded-full border border-cyan-500 p-0.5" onerror="this.src='https://placehold.co/40x40/0a0a1a/0ff?text=VIBE'">
+                <!-- [MODIFIED] Title text size and stacking for mobile -->
+                <span class="font-transformer text-xl sm:text-2xl md:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500 header-title">
+                    <span class="text-white text-sm sm:text-base md:text-lg block sm:inline">Mozilla X phoniex</span>
+                    <span class="block sm:inline sm:ml-2">VIBE-CODING</span>
+                </span>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:block">
+                <ul class="flex space-x-4 items-center">
+                    <li><a href="index.html" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md bg-cyan-600 text-gray-900 font-bold border border-cyan-600 transition-all duration-300">Home</a></li>
+                    <li><a href="submission.html" target="_blank" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md text-gray-300 border border-transparent hover:border-cyan-700 hover:bg-cyan-900/50 transition-all duration-300">Submit</a></li>
+                    <li><a href="#" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md text-gray-300 border border-transparent hover:border-cyan-700 hover:bg-cyan-900/50 transition-all duration-300">Rules</a></li>
+                </ul>
+            </nav>
+            
+            <!-- [NEW] Mobile Menu Button (Hamburger) -->
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-button" class="text-gray-300 hover:text-cyan-400 focus:outline-none p-2 rounded-md hover:bg-gray-800/50">
+                    <i id="menu-icon" data-lucide="menu" class="h-6 w-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- [NEW] Mobile Menu (Dropdown) -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-gray-950/95 backdrop-blur-md shadow-lg z-50 border-t border-cyan-700/50">
+            <ul class="flex flex-col items-center space-y-4 py-6">
+                <li><a href="index.html" class="font-transformer tracking-wider text-lg py-3 px-6 rounded-md bg-cyan-600 text-gray-900 font-bold">Home</a></li>
+                <li><a href="submission.html" target="_blank" class="font-transformer tracking-wider text-lg py-3 px-6 rounded-md text-gray-300 hover:bg-cyan-900/50 w-full text-center">Submit</a></li>
+                <li><a href="#" class="font-transformer tracking-wider text-lg py-3 px-6 rounded-md text-gray-300 hover:bg-cyan-900/50 w-full text-center">Rules</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main content area -->
+    <main class="flex-grow w-full flex flex-col items-center relative z-10">
+
+        <!-- Home Section -->
+        <section id="home" class="min-h-[80vh] w-full flex flex-col justify-center items-center text-center p-4">
+            
+            <!-- Main Title -->
+            <div class="animate-fade-in-up">
+                <!-- [MODIFIED] Responsive text size -->
+                <h1 class="font-transformer text-4xl sm:text-5xl md:text-8xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-purple-400 leading-tight tracking-wider">
+                    <span class="text-white">VIBE CODING:</span> TRANSFORM
+                </h1>
+                <!-- [MODIFIED] Responsive text size -->
+                <p class="text-xl sm:text-2xl md:text-3xl text-gray-300 mt-4 font-inter delay-1 animate-fade-in-up">
+                    Energize Your Creations. Transmit Your Code.
+                </p>
+            </div>
+            
+            <!-- Timer Section -->
+            <section id="timer-section" class="tech-container w-full max-w-3xl p-6 md:p-8 rounded-xl text-center my-10 animate-fade-in-up delay-2">
+            
+                <!-- Start Button -->
+                <div id="start-button-container" class="relative z-20">
+                    <!-- [MODIFIED] Responsive text size -->
+                    <h2 class="text-xl sm:text-2xl font-bold font-transformer text-yellow-400 mb-4">INITIATE SEQUENCE</h2>
+                    <p class="text-gray-300 mb-6 text-base sm:text-lg">Activate the 48-hour submission window. This action is irreversible.</p>
+                    <button id="start-button" class="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold py-3 px-8 rounded-lg text-lg shadow-lg glowing-btn hover:shadow-yellow-500/50 transition-all duration-300 transform hover:scale-105 font-transformer">
+                        DEPLOY COUNTDOWN
+                    </button>
+                </div>
+    
+                <!-- Timer Display -->
+                <div id="timer-display" class="relative z-20 hidden rounded-lg p-4 sm:p-6 bg-rose-900/30 border border-rose-600">
+                    <!-- [MODIFIED] Responsive text size -->
+                    <h2 class="text-xl sm:text-2xl font-bold font-transformer text-rose-400 mb-4 tracking-wider">SUBMISSION MATRIX ACTIVE</h2>
+                    <p class="text-base sm:text-lg text-gray-200 mb-3">Time Remaining for Data Transmission:</p>
+                    <div class="flex justify-center space-x-2 sm:space-x-4 text-white">
+                        <!-- [MODIFIED] Responsive text and box size -->
+                        <div class="text-center bg-gray-900/70 p-3 sm:p-4 rounded-lg min-w-[60px] sm:min-w-[80px] border border-gray-700 shadow-inner shadow-gray-800/50">
+                            <span id="timer-days" class="text-2xl sm:text-3xl md:text-4xl font-bold font-transformer">00</span>
+                            <span class="block text-xs sm:text-sm text-gray-400 mt-1">DAYS</span>
+                        </div>
+                        <div class="text-center bg-gray-900/70 p-3 sm:p-4 rounded-lg min-w-[60px] sm:min-w-[80px] border border-gray-700 shadow-inner shadow-gray-800/50">
+                            <span id="timer-hours" class="text-2xl sm:text-3xl md:text-4xl font-bold font-transformer">00</span>
+                            <span class="block text-xs sm:text-sm text-gray-400 mt-1">HOURS</span>
+                        </div>
+                        <div class="text-center bg-gray-900/70 p-3 sm:p-4 rounded-lg min-w-[60px] sm:min-w-[80px] border border-gray-700 shadow-inner shadow-gray-800/50">
+                            <span id="timer-minutes" class="text-2xl sm:text-3xl md:text-4xl font-bold font-transformer">00</span>
+                            <span class="block text-xs sm:text-sm text-gray-400 mt-1">MINUTES</span>
+                        </div>
+                        <div class="text-center bg-gray-900/70 p-3 sm:p-4 rounded-lg min-w-[60px] sm:min-w-[80px] border border-gray-700 shadow-inner shadow-gray-800/50">
+                            <span id="timer-seconds" class="text-2xl sm:text-3xl md:text-4xl font-bold font-transformer">00</span>
+                            <span class="block text-xs sm:text-sm text-gray-400 mt-1">SECONDS</span>
+                        </div>
+                    </div>
+                    
+                    <button id="reset-button" class="absolute top-2 right-2 text-xs text-gray-500 hover:text-red-400 transition-colors p-1 rounded bg-gray-800/80 hover:bg-gray-700/80 z-30">
+                        [DEV: Reset Timer]
+                    </button>
+                    
+                </div>
+                
+                <!-- Timer Ended Message -->
+                <div id="timer-ended" class="relative z-20 hidden p-6 rounded-lg bg-red-900/50 border border-red-700">
+                     <h2 class="text-2xl sm:text-3xl font-bold font-transformer text-red-400 tracking-wider">TRANSMISSION OVERRIDE</h2>
+                     <p class="text-base sm:text-lg text-gray-200 mt-2">The 48-hour submission window has closed. Data streams are terminated.</p>
+                </div>
+            </section>
+
+            <!-- [MODIFIED] Submission Portal Button - now uses tech-container -->
+            <section class="tech-container w-full max-w-3xl p-6 md:p-8 rounded-xl text-center my-10 animate-fade-in-up delay-3">
+                <div class="relative z-20">
+                    <h2 class="text-xl sm:text-2xl font-bold font-transformer text-cyan-400 mb-4">SUBMISSION PORTAL</h2>
+                    <p class="text-gray-300 mb-6 text-base sm:text-lg">Transmit your completed project files.</p>
+                    <a href="submission.html" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold py-3 px-8 rounded-lg text-lg shadow-lg glowing-btn hover:shadow-yellow-500/50 transition-all duration-300 transform hover:scale-105 font-transformer">
+                        OPEN PORTAL
+                    </a>
+                </div>
+            </section>
+            <!-- [END MODIFICATION] -->
+
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="w-full bg-gray-950/80 border-t border-cyan-700/50 py-6 relative z-10 backdrop-blur-sm mt-12">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400 text-sm">
+            <p>&copy; yash vijay bro </p>
+            <!-- [MODIFIED] Flex layout for mobile -->
+            <div class="mt-2 flex flex-col sm:flex-row justify-center items-center space-y-1 sm:space-y-0 sm:space-x-4">
+                <a href="#" class="hover:text-cyan-400 transition-colors">tools</a>
+                <span class="text-gray-600 hidden sm:block">|</span>
+                <a href="#" class="hover:text-cyan-400 transition-colors">club rulers ke naam</a>
+                <span class="text-gray-600 hidden sm:block">|</span>
+                <a href="#" class="hover:text-cyan-400 transition-colors">prices</a>
+            </div>
+            <p class="mt-3 text-xs text-gray-500">
+                phoniex x mozilla - Activating Creative Protocols.
+            </p>
+        </div>
+    </footer>
+
+    <!-- SHARED COUNTDOWN SCRIPT -->
+    <!-- Assuming countdown.js exists and handles the timer logic -->
+    <script src="countdown.js" defer></script> 
+    
+    <!-- [NEW] SCRIPT for Mobile Menu and Lucide Icons -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+
+            if (menuButton && mobileMenu && menuIcon) {
+                menuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    
+                    // Toggle icon between 'menu' and 'x'
+                    if (mobileMenu.classList.contains('hidden')) {
+                        menuIcon.setAttribute('data-lucide', 'menu');
+                    } else {
+                        menuIcon.setAttribute('data-lucide', 'x');
+                    }
+                    lucide.createIcons(); // Re-render the new icon
+                });
+            }
+
+            // Activate Lucide Icons on initial load
+            lucide.createIcons();
+
+            // --- Countdown Timer Logic (from countdown.js) ---
+            // Placed here for a single-file solution. 
+            // If you have a separate countdown.js, you can remove this block.
+            
+            const timerDisplay = document.getElementById('timer-display');
+            const startButtonContainer = document.getElementById('start-button-container');
+            const startButton = document.getElementById('start-button');
+            const timerEnded = document.getElementById('timer-ended');
+            const resetButton = document.getElementById('reset-button'); // Dev reset button
+
+            const daysEl = document.getElementById('timer-days');
+            const hoursEl = document.getElementById('timer-hours');
+            const minutesEl = document.getElementById('timer-minutes');
+            const secondsEl = document.getElementById('timer-seconds');
+            
+            const storageKey = 'vibeCodingEndTime';
+            let countdownInterval;
+
+            function updateTimer() {
+                const endTime = localStorage.getItem(storageKey);
+                if (!endTime) {
+                    showStartButton();
+                    return;
+                }
+
+                const total = Date.parse(endTime) - Date.now();
+                
+                if (total <= 0) {
+                    clearInterval(countdownInterval);
+                    showEndedMessage();
+                } else {
+                    const seconds = Math.floor((total / 1000) % 60);
+                    const minutes = Math.floor((total / 1000 / 60) % 60);
+                    const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+                    const days = Math.floor(total / (1000 * 60 * 60 * 24));
+
+                    daysEl.textContent = String(days).padStart(2, '0');
+                    hoursEl.textContent = String(hours).padStart(2, '0');
+                    minutesEl.textContent = String(minutes).padStart(2, '0');
+                    secondsEl.textContent = String(seconds).padStart(2, '0');
+                    
+                    showTimer();
+                }
+            }
+
+            function startTimer() {
+                // Set end time for 48 hours from now
+                const endTime = new Date(Date.now() + 48 * 60 * 60 * 1000);
+                localStorage.setItem(storageKey, endTime.toISOString());
+                
+                showTimer();
+                updateTimer(); // Initial call to set values
+                countdownInterval = setInterval(updateTimer, 1000);
+            }
+
+            function showStartButton() {
+                startButtonContainer.classList.remove('hidden');
+                timerDisplay.classList.add('hidden');
+                timerEnded.classList.add('hidden');
+            }
+
+            function showTimer() {
+                startButtonContainer.classList.add('hidden');
+                timerDisplay.classList.remove('hidden');
+                timerEnded.classList.add('hidden');
+            }
+
+            function showEndedMessage() {
+                startButtonContainer.classList.add('hidden');
+                timerDisplay.classList.add('hidden');
+                timerEnded.classList.remove('hidden');
+            }
+
+            // Event Listeners
+            if (startButton) {
+                startButton.addEventListener('click', () => {
+                    // Simple custom confirmation modal
+                    const confirmBox = document.createElement('div');
+                    confirmBox.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4';
+                    confirmBox.innerHTML = `
+                        <div class="bg-gray-900 border border-yellow-500 rounded-lg p-6 max-w-sm w-full text-center tech-container">
+                            <h3 class="font-transformer text-xl text-yellow-400 mb-4">Confirm Activation</h3>
+                            <p class="text-gray-300 mb-6">This will start the 48-hour timer. This action cannot be undone.</p>
+                            <div class="flex justify-center space-x-4">
+                                <button id="confirm-cancel" class="py-2 px-5 rounded-md text-gray-300 border border-gray-600 hover:bg-gray-700 transition-colors">Cancel</button>
+                                <button id="confirm-start" class="py-2 px-5 rounded-md text-gray-900 font-bold bg-yellow-500 hover:bg-yellow-600 transition-colors">Start Timer</button>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(confirmBox);
+                    
+                    document.getElementById('confirm-start').addEventListener('click', () => {
+                        startTimer();
+                        document.body.removeChild(confirmBox);
+                    });
+                    
+                    document.getElementById('confirm-cancel').addEventListener('click', () => {
+                        document.body.removeChild(confirmBox);
+                    });
+                });
+            }
+
+            if (resetButton) {
+                resetButton.addEventListener('click', () => {
+                    clearInterval(countdownInterval);
+                    localStorage.removeItem(storageKey);
+                    showStartButton();
+                });
+            }
+
+            // Initial check on load
+            const existingEndTime = localStorage.getItem(storageKey);
+            if (existingEndTime) {
+                if (Date.parse(existingEndTime) > Date.now()) {
+                    showTimer();
+                    updateTimer(); // Initial call to set values
+                    countdownInterval = setInterval(updateTimer, 1000);
+                } else {
+                    showEndedMessage();
+                }
+            } else {
+                showStartButton();
+            }
+
+            // --- End of Timer Logic ---
+        });
+    </script>
+</body>
+</html>
+
