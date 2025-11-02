@@ -2,46 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Viewport meta tag is essential for mobile responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vibe Coding - Contest by Mozilla X Phoenix</title>
     
-    <!-- Using your logo.png as the favicon -->
     <link rel="icon" href="logo.png" type="image/png">
     
-    <!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Font: Inter & Orbitron -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     
-    <!-- Lucide Icons CDN URL -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
     <style>
-        /* --- General Body Styles --- */
+        
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #ffffff; /* White background */
-            /* [REMOVED] color: #0a0a1a; */
-            overflow-x: hidden; /* Prevent horizontal scroll */
-            position: relative; /* [NEW] Ensure z-index stacking context for bg */
+            background-color: #ffffff; 
+            
+            overflow-x: hidden; 
+            position: relative; 
         }
 
-        /* [NEW] Animated Background */
+        
         #animated-bg {
             position: fixed;
-            inset: 0; /* (top: 0, left: 0, right: 0, bottom: 0) */
+            inset: 0; 
             width: 100%;
             height: 100%;
-            /* Abstract tech image from Unsplash */
+            
             background-image: url('DE.jpg'); 
             background-size: cover;
             background-position: center;
-            opacity: 0.05; /* Start at "way low" */
+            opacity: 0.05; 
             animation: breathe-bg 8s infinite ease-in-out;
-            z-index: -1; /* Sits behind all content */
+            z-index: -1; 
         }
 
         @keyframes breathe-bg {
@@ -51,17 +49,17 @@
             }
             50% {
                 opacity: 0.12;
-                transform: scale(1.05); /* Added subtle zoom for more "breathing" */
+                transform: scale(1.05);
             }
         }
 
 
-        /* --- Loader Screen --- */
+        
         #loader-overlay {
             position: fixed;
             inset: 0;
-            background-color: #ffffff; /* White background */
-            z-index: 100; /* Highest z-index */
+            background-color: #ffffff; 
+            z-index: 100; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -69,7 +67,7 @@
         }
 
         #loader-image {
-            width: 200px; /* Set a reasonable size */
+            width: 200px; 
             max-width: 90%;
             height: auto;
             animation: pulse-loader 2s infinite ease-in-out;
@@ -86,32 +84,50 @@
             }
         }
 
-        /* Class to hide the loader */
+       
         #loader-overlay.hidden {
             opacity: 0;
-            pointer-events: none; /* Make it unclickable while fading */
+            pointer-events: none;
         }
 
+        
+        #welcome-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 90;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease-out;
+            opacity: 1;
+        }
 
-        /* --- Font and Theming --- */
+        #welcome-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        
         h1, h2, h3, h4, .font-transformer {
             font-family: 'Orbitron', sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
-        /* --- [MODIFIED] Classic Container Style (Frosted Glass) --- */
+        
         .tech-container {
             position: relative;
-            /* [REMOVED] background: #ffffff; */
-            border: 1px solid rgba(224, 224, 224, 0.4); /* [MODIFIED] More subtle border */
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1); /* [MODIFIED] Enhanced shadow for glass */
+            
+            border: 1px solid rgba(224, 224, 224, 0.4); 
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1); 
             overflow: hidden; 
-            transition: all 0.3s ease-out; /* Added transition */
+            transition: all 0.3s ease-out; 
         }
         .tech-container:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12); /* [MODIFIED] Enhanced hover shadow */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
         }
         
         .tech-container > * {
@@ -119,12 +135,10 @@
             z-index: 2;
         }
         
-        /* --- Subtitle Styling --- */
         .subtitle-tech {
             letter-spacing: 0.1em;
         }
 
-        /* --- Entrance Animations --- */
         @keyframes fade-in-up {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -138,33 +152,32 @@
         .animate-fade-in-up.delay-3 { animation-delay: 0.6s; }
         .animate-fade-in-up.delay-4 { animation-delay: 0.8s; }
         .animate-fade-in-up.delay-5 { animation-delay: 1.0s; }
-        .animate-fade-in-up.delay-6 { animation-delay: 1.2s; } /* [NEW] Delay for new section */
+        .animate-fade-in-up.delay-6 { animation-delay: 1.2s; } 
 
         
-        /* --- Timer Box Styling --- */
         .timer-box {
-            background: #ffffff; /* White */
-            border: 1px solid #e0e0e0; /* Light grey border */
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
+            background: #ffffff;
+            border: 1px solid #e0e0e0; 
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
         }
         .timer-box span:first-child {
             font-family: 'Orbitron', sans-serif;
         }
         
-        /* --- [MODIFIED] GIF Slideshow --- */
+       
         #gif-slideshow {
             position: relative;
             width: 100%;
-            /* [MODIFIED] Set a min-height and make it grow */
+            
             min-height: 500px; 
             height: 100%;
             flex-grow: 1; 
-            /* [NEW] Added overflow hidden for rounded corners if any */
+            
             overflow: hidden;
-            /* [NEW] Added for visual separation */
+            
             border-top: 1px solid #e0e0e0;
             border-bottom: 1px solid #e0e0e0;
-            border-radius: 0.75rem; /* [NEW] Rounded corners for the slideshow */
+            border-radius: 0.75rem; 
         }
         
         .gif-slide {
@@ -176,7 +189,6 @@
             object-fit: cover;
             opacity: 0;
             transition: opacity 1s ease-in-out;
-            /* [NEW] Added z-index 1 */
             z-index: 1;
         }
         
@@ -184,37 +196,35 @@
             opacity: 1;
         }
 
-        /* --- Enhanced Button Styles --- */
         .btn-classic {
-            /* Base styles for classic buttons */
             border-radius: 0.5rem;
             font-weight: 700;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease-out;
-            transform: scale(1); /* Initial state */
-            display: inline-block; /* Ensure transform works */
+            transform: scale(1); 
+            display: inline-block; 
         }
         .btn-classic:hover {
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-            transform: scale(1.03) translateY(-2px); /* Lift and scale */
+            transform: scale(1.03) translateY(-2px); 
         }
         .btn-classic:active {
-            transform: scale(0.98) translateY(0); /* Press effect */
+            transform: scale(0.98) translateY(0); 
         }
 
-        /* Large button (for main actions) */
+        
         .btn-lg {
-            padding: 0.75rem 2rem; /* py-3 px-8 */
-            font-size: 1.125rem; /* lg */
+            padding: 0.75rem 2rem; 
+            font-size: 1.125rem; 
         }
 
-        /* Small button (for modals) */
+        
         .btn-sm {
-            padding: 0.5rem 1.5rem; /* py-2 px-6 */
-            font-size: 1rem; /* base */
+            padding: 0.5rem 1.5rem; 
+            font-size: 1rem; 
         }
         
-        /* Primary black button */
+        
         .btn-primary {
             background-color: #0a0a1a;
             color: #ffffff;
@@ -223,317 +233,290 @@
             background-color: #333333;
         }
 
-        /* Deploy yellow button */
+        
         .btn-deploy {
-            background-color: #f59e0b; /* Amber 500 */
+            background-color: #f59e0b; 
             color: #ffffff;
             box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2);
         }
         .btn-deploy:hover {
-            background-color: #d97706; /* Amber 600 */
+            background-color: #d97706; 
             box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3);
         }
 
-        /* [NEW] Feature Icon Style */
+       
         .feature-icon {
             background-color: #0a0a1a;
-            color: #f59e0b; /* Amber 500 */
-            padding: 0.75rem; /* p-3 */
-            border-radius: 0.5rem; /* rounded-lg */
+            color: #f59e0b; 
+            padding: 0.75rem; 
+            border-radius: 0.5rem; 
             display: inline-flex;
         }
 
     </style>
 </head>
-<!-- body tag for full-height flex layout -->
+
 <body class="text-gray-900 min-h-screen flex flex-col">
 
-    <!-- [NEW] Animated Background -->
+    <audio id="background-audio" src="https://cdn.pixabay.com/audio/2022/02/07/audio_1c8c2b54d4.mp3" loop></audio>
+    
     <div id="animated-bg"></div>
 
-    <!-- Loader Screen -->
     <div id="loader-overlay">
-        <!-- Placeholder loader image for white theme -->
         <img id="loader-image" src="logo.png" alt="Loading Vibe Coding..." />
     </div>
     
-    <!-- Header Section -->
-    <header class="w-full bg-white/90 border-b border-gray-200 shadow-sm py-4 relative z-20 backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-            
-            <!-- Logo and Title -->
-            <div class="flex items-center">
-                <!-- College Logo Placeholder -->
-                <img src="logo.png" alt="College Logo" class="h-10 w-10 mr-3 rounded-full border border-gray-300 p-0.5" onerror="this.src='https://placehold.co/40x40/0a0a1a/ffffff?text=VC'">
+    <div id="welcome-overlay">
+        <div class="text-center p-8">
+            <h2 class="font-transformer text-4xl sm:text-6xl font-extrabold text-gray-900">WELCOME, OPERATIVE</h2>
+            <p class="text-xl sm:text-2xl text-gray-600 mt-4 font-inter subtitle-tech">The Vibe Coding Matrix is Live.</p>
+            <button id="enter-button" class="font-transformer btn-classic btn-lg btn-primary mt-12">
+                INITIATE
+            </button>
+        </div>
+    </div>
+    
+    <div id="main-content" class="hidden">
+        <header class="w-full bg-white/90 border-b border-gray-200 shadow-sm py-4 relative z-20 backdrop-blur-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
                 
-                <span class="font-transformer text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900">
-                    <span class="text-gray-600 text-sm sm:text-base md:text-lg block sm:inline">Mozilla X Phoenix</span>
-                    <span class="block sm:inline sm:ml-2">VIBE-CODING</span>
-                </span>
+                <div class="flex items-center">
+                    <img src="logo.png" alt="College Logo" class="h-10 w-10 mr-3 rounded-full border border-gray-300 p-0.5" onerror="this.src='https://placehold.co/40x40/0a0a1a/ffffff?text=VC'">
+                    
+                    <span class="font-transformer text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900">
+                        <span class="text-gray-600 text-sm sm:text-base md:text-lg block sm:inline">Mozilla X Phoenix</span>
+                        <span class="block sm:inline sm:ml-2">VIBE-CODING</span>
+                    </span>
+                </div>
+                
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-4 items-center">
+                        <li><a href="index.html" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md bg-gray-900 text-white font-bold transition-all duration-300">Home</a></li>
+                        <li><a href="submission.html" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md text-gray-600 border border-transparent hover:bg-gray-100 hover:text-gray-900 transition-all duration-300">Submit</a></li>
+                        <li><a id="rules-link-desktop" href="#" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md text-gray-600 border border-transparent hover:bg-gray-100 hover:text-gray-900 transition-all duration-300">Rules</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-gray-900 focus:outline-none p-2 rounded-md hover:bg-gray-100/50">
+                        <i id="menu-icon" data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
             </div>
-            
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:block">
-                <ul class="flex space-x-4 items-center">
-                    <li><a href="index.html" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md bg-gray-900 text-white font-bold transition-all duration-300">Home</a></li>
-                    <li><a href="submission.html" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md text-gray-600 border border-transparent hover:bg-gray-100 hover:text-gray-900 transition-all duration-300">Submit</a></li>
-                    <li><a id="rules-link-desktop" href="#" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md text-gray-600 border border-transparent hover:bg-gray-100 hover:text-gray-900 transition-all duration-300">Rules</a></li>
+
+            <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-lg z-50 border-t border-gray-200">
+                <ul class="flex flex-col items-center space-y-4 py-6">
+                    <li><a href="index.html" class="font-transformer tracking-wider text-lg py-3 px-6 rounded-md bg-gray-900 text-white font-bold">Home</a></li>
+                    <li><a href="submission.html" class="font-transformer tracking-wider text-lg py-3 px-6 rounded-md text-gray-700 hover:bg-gray-100 w-full text-center">Submit</a></li>
+                    <li><a id="rules-link-mobile" href="#" class="font-transformer tracking-wider text-lg py-3 px-6 rounded-md text-gray-700 hover:bg-gray-100 w-full text-center">Rules</a></li>
                 </ul>
-            </nav>
-            
-            <!-- Mobile Menu Button (Hamburger) -->
-            <div class="md:hidden flex items-center">
-                <button id="mobile-menu-button" class="text-gray-700 hover:text-gray-900 focus:outline-none p-2 rounded-md hover:bg-gray-100/50">
-                    <i id="menu-icon" data-lucide="menu" class="h-6 w-6"></i>
-                </button>
             </div>
-        </div>
+        </header>
 
-        <!-- Mobile Menu Styling -->
-        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-lg z-50 border-t border-gray-200">
-            <ul class="flex flex-col items-center space-y-4 py-6">
-                <li><a href="index.html" class="font-transformer tracking-wider text-lg py-3 px-6 rounded-md bg-gray-900 text-white font-bold">Home</a></li>
-                <li><a href="submission.html" class="font-transformer tracking-wider text-lg py-3 px-6 rounded-md text-gray-700 hover:bg-gray-100 w-full text-center">Submit</a></li>
-                <li><a id="rules-link-mobile" href="#" class="font-transformer tracking-wider text-lg py-3 px-6 rounded-md text-gray-700 hover:bg-gray-100 w-full text-center">Rules</a></li>
-            </ul>
-        </div>
-    </header>
+        <main class="flex-grow w-full flex flex-col items-center relative z-10">
 
-    <!-- Main content area is now a flex container -->
-    <main class="flex-grow w-full flex flex-col items-center relative z-10">
-
-        <!-- Home Section (White Background) -->
-        <section id="home" class="min-h-min w-full flex flex-col justify-center items-center text-center p-4">
+            <section id="home" class="min-h-min w-full flex flex-col justify-center items-center text-center p-4">
+                
+                <div class="animate-fade-in-up mt-12 sm:mt-20">
+                    <h1 class="font-transformer text-4xl sm:text-5xl md:text-8xl font-extrabold text-gray-900 leading-tight tracking-wider">
+                        <span class="text-gray-700">VIBE CODING:</span> TRANSFORM
+                    </h1>
+                    <p class="text-xl sm:text-2xl md:text-3xl text-gray-600 mt-4 font-inter delay-1 animate-fade-in-up subtitle-tech">
+                        Energize Your Creations. Transmit Your Code.
+                    </p>
+                </div>
+                
             
-            <!-- Main Title -->
-            <div class="animate-fade-in-up mt-12 sm:mt-20">
-                <h1 class="font-transformer text-4xl sm:text-5xl md:text-8xl font-extrabold text-gray-900 leading-tight tracking-wider">
-                    <span class="text-gray-700">VIBE CODING:</span> TRANSFORM
-                </h1>
-                <p class="text-xl sm:text-2xl md:text-3xl text-gray-600 mt-4 font-inter delay-1 animate-fade-in-up subtitle-tech">
-                    Energize Your Creations. Transmit Your Code.
+                <section id="timer-section" class="tech-container w-full max-w-3xl p-6 md:p-8 rounded-xl text-center my-10 animate-fade-in-up delay-2 bg-white/70 backdrop-blur-lg">
+                
+                
+                    <div id="start-button-container" class="relative z-20">
+                        <h2 class="text-xl sm:text-2xl font-bold font-transformer text-grey-600 mb-4">INITIATE SEQUENCE</h2>
+                        <p class="text-gray-700 mb-6 text-base sm:text-lg">Activate the 48-hour submission window. This action is irreversible.</p>
+                        <button id="start-button" class="font-transformer btn-classic btn-lg btn-deploy">
+                            DEPLOY COUNTDOWN
+                        </button>
+                    </div>
+        
+                
+                    <div id="timer-display" class="relative z-20 hidden rounded-lg p-4 sm:p-6 bg-gray-50 border border-gray-200">
+                        <h2 class="text-xl sm:text-2xl font-bold font-transformer text-gray-900 mb-4 tracking-wider">SUBMISSION MATRIX ACTIVE</h2>
+                        <p class="text-base sm:text-lg text-gray-700 mb-3">Time Remaining for Data Transmission:</p>
+                        <div class="flex justify-center space-x-2 sm:space-x-4 text-gray-900">
+                            
+                            <div class="text-center timer-box p-3 sm:p-4 rounded-lg min-w-[60px] sm:min-w-[80px]">
+                                <span id="timer-days" class="text-2xl sm:text-3xl md:text-4xl font-bold">00</span>
+                                <span class="block text-xs sm:text-sm text-gray-500 mt-1">DAYS</span>
+                            </div>
+                            <div class="text-center timer-box p-3 sm:p-4 rounded-lg min-w-[60px] sm:min-w-[80px]">
+                                <span id="timer-hours" class="text-2xl sm:text-3xl md:text-4xl font-bold">00</span>
+                                <span class="block text-xs sm:text-sm text-gray-500 mt-1">HOURS</span>
+                            </div>
+                            <div class="text-center timer-box p-3 sm:p-4 rounded-lg min-w-[60px] sm:min-w-[80px]">
+                                <span id="timer-minutes" class="text-2xl sm:text-3xl md:text-4xl font-bold">00</span>
+                                <span class="block text-xs sm:text-sm text-gray-500 mt-1">MINUTES</span>
+                            </div>
+                            <div class="text-center timer-box p-3 sm:p-4 rounded-lg min-w-[60px] sm:min-w-[80px]">
+                                <span id="timer-seconds" class="text-2xl sm:text-3xl md:text-4xl font-bold">00</span>
+                                <span class="block text-xs sm:text-sm text-gray-500 mt-1">SECONDS</span>
+                            </div>
+                        </div>
+                        
+                        <button id="reset-button" class="absolute top-2 right-2 text-xs text-gray-500 hover:text-red-600 transition-colors p-1 rounded bg-gray-100/80 hover:bg-gray-200/80 z-30">
+                            [DEV: Reset Timer]
+                        </button>
+                        
+                    </div>
+                    
+                    <div id="timer-ended" class="relative z-20 hidden p-6 rounded-lg bg-red-100 border border-red-300">
+                            <h2 class="text-2xl sm:text-3xl font-bold font-transformer text-red-700 tracking-wider">TRANSMISSION OVERRIDE</h2>
+                            <p class="text-base sm:text-lg text-red-800 mt-2">The 48-hour submission window has closed. Data streams are terminated.</p>
+                    </div>
+                </section>
+                
+
+                <div id="gif-slideshow" class="w-full shadow-lg"> 
+            
+                    <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXY0c3B6YWRodW5tcGVybXVtd2l0amxzYTh0NGJxdnF6eHd1ZjdmcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nbTFgBxIzQ2GlyONVG/giphy.gif" alt="Transformers Optimus Prime transforming animation" class="gif-slide active" 
+                            onerror="this.src='https://placehold.co/512x384/0a0a1a/e0e0e0?text=Animation+Error'">
+                    <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExemtscjVsdzJ6ZHN5bGU4Nmdibnd1M3M3cjJnNWx1ejQ0dmRnbnFtbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pf0GhIWekXeInoJKM8/giphy.gif" alt="Bumblebee transforming animation" class="gif-slide" 
+                            onerror="this.src='https://placehold.co/512x384/0a0a1a/e0e0e0?text=Animation+Error'">
+                    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzZybTVhMTU1ODNsbXRvazlkOWpobjE2OHU5cXMyMWZlaW1xNDljYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bGCDhW2AKpylrdHx29/giphy.gif" alt="Optimus Prime truck animation" class="gif-slide" 
+                            onerror="this.src='https://placehold.co/512x384/0a0a1a/e0e0e0?text=Animation+Error'">
+                    
+                
+                    <div class="absolute bottom-0 left-0 w-full z-10 bg-black/80 text-white p-6 sm:p-8 animate-fade-in-up delay-4 backdrop-blur-sm">
+                        <section class="max-w-4xl w-full mx-auto">
+                            <h2 class="text-2xl font-bold font-transformer text-white mb-4">MISSION BRIEFING</h2>
+                            <div class="space-y-4 text-gray-300">
+                                <p>VIBE CODING is more than a hackathon—it's a 48-hour proving ground. We're calling all creators, coders, and designers to plug into the matrix, energize their ideas, and transmit a project that pushes the boundaries of their creativity.</p>
+                                <p>This year's theme is <strong class="text-yellow-400 font-bold">"TRANSFORM"</strong>. We challenge you to interpret this directive in any way you see fit. Show us a data transformation, a UI that transforms, a personal story of transformation, or... well, you know the theme. <em>Autobots, roll out!</em></p>
+                                <p class="flex-grow">Whether you're a lone wolf or part of a squad, this is your chance to build something awesome. The clock is ticking.</p>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <section class="tech-container w-full max-w-3xl p-6 md:p-8 rounded-xl text-center my-10 animate-fade-in-up delay-3 bg-white/70 backdrop-blur-lg">
+                    <div class="relative z-20">
+                        <h2 class="text-xl sm:text-2xl font-bold font-transformer text-gray-900 mb-4">SUBMISSION PORTAL</h2>
+                        <p class="text-gray-700 mb-6 text-base sm:text-lg">Transmit your completed project files.</p>
+                        <a href="submission.html" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            class="font-transformer btn-classic btn-lg btn-primary">
+                            OPEN PORTAL
+                        </a>
+                    </div>
+                </section>
+
+            </section>
+            <section class="w-full py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-start">
+                        
+                        <div class="space-y-8 animate-fade-in-up delay-5">
+                            <h2 class="font-transformer text-3xl sm:text-4xl font-bold text-gray-900 tracking-wider">
+                                WHY PLUG IN?
+                            </h2>
+                            <p class="text-lg text-gray-700">
+                                This isn't just another hackathon. It's a 48-hour sprint to build, learn, and showcase your skills. Here’s the data packet on why you should deploy.
+                            </p>
+                            <ul class="space-y-6">
+                                <li class="flex items-start space-x-4">
+                                    <div class="feature-icon mt-1 flex-shrink-0">
+                                        <i data-lucide="zap" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-transformer text-lg font-bold text-gray-900">Energize Your Ideas</h4>
+                                        <p class="text-gray-700">Go from concept to creation. This is your dedicated time to build that project you've been thinking about, powered by the "Transform" theme.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start space-x-4">
+                                    <div class="feature-icon mt-1 flex-shrink-0">
+                                        <i data-lucide="award" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-transformer text-lg font-bold text-gray-900">Win Awesome Prizes</h4>
+                                        <p class="text-gray-700">Compete for glory and epic loot. Our prize pool includes mechanical keyboards, high-end gear, and exclusive winner's trophies.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start space-x-4">
+                                    <div class="feature-icon mt-1 flex-shrink-0">
+                                        <i data-lucide="users" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-transformer text-lg font-bold text-gray-900">Join the Community</h4>
+                                        <p class="text-gray-700">Connect with fellow coders, designers, and tech enthusiasts from Mozilla and Phoenix. Share knowledge, get feedback, and make new connections.</p>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="space-y-8 animate-fade-in-up delay-6">
+                            <h2 class="font-transformer text-3xl sm:text-4xl font-bold text-gray-900 tracking-wider">
+                                PROTOCOL CURATORS
+                            </h2>
+                            
+                            <div class="p-6 rounded-lg border border-gray-200/50 shadow-lg transition-all duration-300 hover:shadow-xl bg-white/70 backdrop-blur-lg">
+                                <h3 class="font-transformer text-xl font-bold text-gray-900">MOZILLA CLUB</h3>
+                                <p class="text-gray-700 mt-2 mb-4">
+                                    Part of the global Mozilla community, our club champions an open, accessible, and inclusive internet. We build, advocate, and educate to keep the web a public resource for all.
+                                </p>
+                                <a href="#" id="mozilla-link" class="font-transformer text-sm font-bold text-gray-900 hover:text-amber-600 transition-colors group">
+                                    Learn More <i data-lucide="arrow-right" class="w-4 h-4 inline-block -mt-0.5 transition-transform duration-300 group-hover:translate-x-1"></i>
+                                </a>
+                            </div>
+                            
+                            <div class="p-6 rounded-lg border border-gray-200/50 shadow-lg transition-all duration-300 hover:shadow-xl bg-white/70 backdrop-blur-lg">
+                                <h3 class="font-transformer text-xl font-bold text-gray-900">PHOENIX CLUB</h3>
+                                <p class="text-gray-700 mt-2 mb-4">
+                                    Rising from the ashes of old ideas, the Phoenix Club is the hub for innovation and creativity on campus. We explore new technologies, from AI to web3, and empower students to build the future.
+                                </p>
+                                <a href="#" id="phoenix-link" class="font-transformer text-sm font-bold text-gray-900 hover:text-amber-600 transition-colors group">
+                                    Learn More <i data-lucide="arrow-right" class="w-4 h-4 inline-block -mt-0.5 transition-transform duration-300 group-hover:translate-x-1"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+        </main>
+
+        <footer class="w-full bg-white/80 backdrop-blur-sm border-t border-gray-200/50 py-8 relative z-10">
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+                
+            
+
+                <p>&copy; Yash Vijay | Vibe Coding</p>
+                
+                <div class="mt-3 flex flex-col sm:flex-row justify-center items-center space-y-1 sm:space-y-0 sm:space-x-4">
+                    <a href="#" id="tools-link" class="hover:text-gray-900 transition-colors">Tools</a>
+                    <span class="text-gray-400 hidden sm:block">|</span>
+                    <a href="#" id="organizers-link" class="hover:text-gray-900 transition-colors">Organizers</a>
+                    <span class="text-gray-400 hidden sm:block">|</span>
+                    <a href="#" id="prizes-link" class="hover:text-gray-900 transition-colors">Prizes</a>
+                </div>
+                <p class="mt-4 text-xs text-gray-500 font-transformer tracking-wider">
+                    Phoenix x Mozilla - Activating Creative Protocols.
                 </p>
             </div>
-            
-            <!-- Timer Section -->
-            <!-- [MODIFIED] Added frosted glass effect classes -->
-            <section id="timer-section" class="tech-container w-full max-w-3xl p-6 md:p-8 rounded-xl text-center my-10 animate-fade-in-up delay-2 bg-white/70 backdrop-blur-lg">
-            
-                <!-- Start Button -->
-                <div id="start-button-container" class="relative z-20">
-                    <h2 class="text-xl sm:text-2xl font-bold font-transformer text-grey-600 mb-4">INITIATE SEQUENCE</h2>
-                    <p class="text-gray-700 mb-6 text-base sm:text-lg">Activate the 48-hour submission window. This action is irreversible.</p>
-                    <button id="start-button" class="font-transformer btn-classic btn-lg btn-deploy">
-                        DEPLOY COUNTDOWN
-                    </button>
-                </div>
+        </footer>
+    </div>
+
     
-                <!-- Timer Display Styling -->
-                <div id="timer-display" class="relative z-20 hidden rounded-lg p-4 sm:p-6 bg-gray-50 border border-gray-200">
-                    <h2 class="text-xl sm:text-2xl font-bold font-transformer text-gray-900 mb-4 tracking-wider">SUBMISSION MATRIX ACTIVE</h2>
-                    <p class="text-base sm:text-lg text-gray-700 mb-3">Time Remaining for Data Transmission:</p>
-                    <div class="flex justify-center space-x-2 sm:space-x-4 text-gray-900">
-                        
-                        <div class="text-center timer-box p-3 sm:p-4 rounded-lg min-w-[60px] sm:min-w-[80px]">
-                            <span id="timer-days" class="text-2xl sm:text-3xl md:text-4xl font-bold">00</span>
-                            <span class="block text-xs sm:text-sm text-gray-500 mt-1">DAYS</span>
-                        </div>
-                        <div class="text-center timer-box p-3 sm:p-4 rounded-lg min-w-[60px] sm:min-w-[80px]">
-                            <span id="timer-hours" class="text-2xl sm:text-3xl md:text-4xl font-bold">00</span>
-                            <span class="block text-xs sm:text-sm text-gray-500 mt-1">HOURS</span>
-                        </div>
-                        <div class="text-center timer-box p-3 sm:p-4 rounded-lg min-w-[60px] sm:min-w-[80px]">
-                            <span id="timer-minutes" class="text-2xl sm:text-3xl md:text-4xl font-bold">00</span>
-                            <span class="block text-xs sm:text-sm text-gray-500 mt-1">MINUTES</span>
-                        </div>
-                        <div class="text-center timer-box p-3 sm:p-4 rounded-lg min-w-[60px] sm:min-w-[80px]">
-                            <span id="timer-seconds" class="text-2xl sm:text-3xl md:text-4xl font-bold">00</span>
-                            <span class="block text-xs sm:text-sm text-gray-500 mt-1">SECONDS</span>
-                        </div>
-                    </div>
-                    
-                    <button id="reset-button" class="absolute top-2 right-2 text-xs text-gray-500 hover:text-red-600 transition-colors p-1 rounded bg-gray-100/80 hover:bg-gray-200/80 z-30">
-                        [DEV: Reset Timer]
-                    </button>
-                    
-                </div>
-                
-                <!-- Timer Ended Styling -->
-                <div id="timer-ended" class="relative z-20 hidden p-6 rounded-lg bg-red-100 border border-red-300">
-                        <h2 class="text-2xl sm:text-3xl font-bold font-transformer text-red-700 tracking-wider">TRANSMISSION OVERRIDE</h2>
-                        <p class="text-base sm:text-lg text-red-800 mt-2">The 48-hour submission window has closed. Data streams are terminated.</p>
-                </div>
-            </section>
-            
-
-            <!-- [MODIFIED] GIF Slideshow is now the parent for the Mission Briefing -->
-            <div id="gif-slideshow" class="w-full shadow-lg"> <!-- [NEW] Added shadow -->
-                <!-- GIF Slides -->
-                <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXY0c3B6YWRodW5tcGVybXVtd2l0amxzYTh0NGJxdnF6eHd1ZjdmcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nbTFgBxIzQ2GlyONVG/giphy.gif" alt="Transformers Optimus Prime transforming animation" class="gif-slide active" 
-                        onerror="this.src='https://placehold.co/512x384/0a0a1a/e0e0e0?text=Animation+Error'">
-                <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExemtscjVsdzJ6ZHN5bGU4Nmdibnd1M3M3cjJnNWx1ejQ0dmRnbnFtbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pf0GhIWekXeInoJKM8/giphy.gif" alt="Bumblebee transforming animation" class="gif-slide" 
-                        onerror="this.src='https://placehold.co/512x384/0a0a1a/e0e0e0?text=Animation+Error'">
-                <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzZybTVhMTU1ODNsbXRvazlkOWpobjE2OHU5cXMyMWZlaW1xNDljYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bGCDhW2AKpylrdHx29/giphy.gif" alt="Optimus Prime truck animation" class="gif-slide" 
-                        onerror="this.src='https://placehold.co/512x384/0a0a1a/e0e0e0?text=Animation+Error'">
-                
-                <!-- [MOVED & STYLED] Mission Briefing Section -->
-                <div class="absolute bottom-0 left-0 w-full z-10 bg-black/80 text-white p-6 sm:p-8 animate-fade-in-up delay-4 backdrop-blur-sm">
-                    <section class="max-w-4xl w-full mx-auto">
-                        <h2 class="text-2xl font-bold font-transformer text-white mb-4">MISSION BRIEFING</h2>
-                        <div class="space-y-4 text-gray-300">
-                            <p>VIBE CODING is more than a hackathon—it's a 48-hour proving ground. We're calling all creators, coders, and designers to plug into the matrix, energize their ideas, and transmit a project that pushes the boundaries of their creativity.</p>
-                            <p>This year's theme is <strong class="text-yellow-400 font-bold">"TRANSFORM"</strong>. We challenge you to interpret this directive in any way you see fit. Show us a data transformation, a UI that transforms, a personal story of transformation, or... well, you know the theme. <em>Autobots, roll out!</em></p>
-                            <p class="flex-grow">Whether you're a lone wolf or part of a squad, this is your chance to build something awesome. The clock is ticking.</p>
-                        </div>
-                    </section>
-                </div>
-            </div>
-            <!-- [END] GIF Slideshow -->
-
-            
-            <!-- Submission Portal Section -->
-            <!-- [MODIFIED] Added frosted glass effect classes -->
-            <section class="tech-container w-full max-w-3xl p-6 md:p-8 rounded-xl text-center my-10 animate-fade-in-up delay-3 bg-white/70 backdrop-blur-lg">
-                <div class="relative z-20">
-                    <h2 class="text-xl sm:text-2xl font-bold font-transformer text-gray-900 mb-4">SUBMISSION PORTAL</h2>
-                    <p class="text-gray-700 mb-6 text-base sm:text-lg">Transmit your completed project files.</p>
-                    <a href="submission.html" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        class="font-transformer btn-classic btn-lg btn-primary">
-                        OPEN PORTAL
-                    </a>
-                </div>
-            </section>
-
-        </section>
-        <!-- [END] Home Section -->
-
-        <!-- [NEW] Awesome Content Section -->
-        <!-- [MODIFIED] Removed bg-gray-50 to let animated bg show through -->
-        <section class="w-full py-16 sm:py-24">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-start">
-                    
-                    <!-- Column 1: Why Participate? -->
-                    <div class="space-y-8 animate-fade-in-up delay-5">
-                        <h2 class="font-transformer text-3xl sm:text-4xl font-bold text-gray-900 tracking-wider">
-                            WHY PLUG IN?
-                        </h2>
-                        <p class="text-lg text-gray-700">
-                            This isn't just another hackathon. It's a 48-hour sprint to build, learn, and showcase your skills. Here’s the data packet on why you should deploy.
-                        </p>
-                        <ul class="space-y-6">
-                            <!-- Feature 1 -->
-                            <li class="flex items-start space-x-4">
-                                <div class="feature-icon mt-1 flex-shrink-0">
-                                    <i data-lucide="zap" class="w-6 h-6"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-transformer text-lg font-bold text-gray-900">Energize Your Ideas</h4>
-                                    <p class="text-gray-700">Go from concept to creation. This is your dedicated time to build that project you've been thinking about, powered by the "Transform" theme.</p>
-                                </div>
-                            </li>
-                            <!-- Feature 2 -->
-                            <li class="flex items-start space-x-4">
-                                <div class="feature-icon mt-1 flex-shrink-0">
-                                    <i data-lucide="award" class="w-6 h-6"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-transformer text-lg font-bold text-gray-900">Win Awesome Prizes</h4>
-                                    <p class="text-gray-700">Compete for glory and epic loot. Our prize pool includes mechanical keyboards, high-end gear, and exclusive winner's trophies.</p>
-                                </div>
-                            </li>
-                            <!-- Feature 3 -->
-                            <li class="flex items-start space-x-4">
-                                <div class="feature-icon mt-1 flex-shrink-0">
-                                    <i data-lucide="users" class="w-6 h-6"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-transformer text-lg font-bold text-gray-900">Join the Community</h4>
-                                    <p class="text-gray-700">Connect with fellow coders, designers, and tech enthusiasts from Mozilla and Phoenix. Share knowledge, get feedback, and make new connections.</p>
-
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Column 2: Organizers -->
-                    <div class="space-y-8 animate-fade-in-up delay-6">
-                        <h2 class="font-transformer text-3xl sm:text-4xl font-bold text-gray-900 tracking-wider">
-                            PROTOCOL CURATORS
-                        </h2>
-                        
-                        <!-- [MODIFIED] Added frosted glass effect classes -->
-                        <div class="p-6 rounded-lg border border-gray-200/50 shadow-lg transition-all duration-300 hover:shadow-xl bg-white/70 backdrop-blur-lg">
-                            <h3 class="font-transformer text-xl font-bold text-gray-900">MOZILLA CLUB</h3>
-                            <p class="text-gray-700 mt-2 mb-4">
-                                Part of the global Mozilla community, our club champions an open, accessible, and inclusive internet. We build, advocate, and educate to keep the web a public resource for all.
-                            </p>
-                            <!-- [MODIFIED] Added id="mozilla-link" -->
-                            <a href="#" id="mozilla-link" class="font-transformer text-sm font-bold text-gray-900 hover:text-amber-600 transition-colors group">
-                                Learn More <i data-lucide="arrow-right" class="w-4 h-4 inline-block -mt-0.5 transition-transform duration-300 group-hover:translate-x-1"></i>
-                            </a>
-                        </div>
-                        
-                        <!-- [MODIFIED] Added frosted glass effect classes -->
-                        <div class="p-6 rounded-lg border border-gray-200/50 shadow-lg transition-all duration-300 hover:shadow-xl bg-white/70 backdrop-blur-lg">
-                            <h3 class="font-transformer text-xl font-bold text-gray-900">PHOENIX CLUB</h3>
-                            <p class="text-gray-700 mt-2 mb-4">
-                                Rising from the ashes of old ideas, the Phoenix Club is the hub for innovation and creativity on campus. We explore new technologies, from AI to web3, and empower students to build the future.
-                            </p>
-                            <!-- [MODIFIED] Added id="phoenix-link" -->
-                            <a href="#" id="phoenix-link" class="font-transformer text-sm font-bold text-gray-900 hover:text-amber-600 transition-colors group">
-                                Learn More <i data-lucide="arrow-right" class="w-4 h-4 inline-block -mt-0.5 transition-transform duration-300 group-hover:translate-x-1"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-        <!-- [END] Awesome Content Section -->
-
-
-    </main>
-
-    <!-- [MODIFIED] Footer: Added subtle glass effect -->
-    <footer class="w-full bg-white/80 backdrop-blur-sm border-t border-gray-200/50 py-8 relative z-10">
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
-            
-        
-
-            <p>&copy; Yash Vijay | Vibe Coding</p>
-            
-            <!-- Added IDs to footer links -->
-            <div class="mt-3 flex flex-col sm:flex-row justify-center items-center space-y-1 sm:space-y-0 sm:space-x-4">
-                <a href="#" id="tools-link" class="hover:text-gray-900 transition-colors">Tools</a>
-                <span class="text-gray-400 hidden sm:block">|</span>
-                <a href="#" id="organizers-link" class="hover:text-gray-900 transition-colors">Organizers</a>
-                <span class="text-gray-400 hidden sm:block">|</span>
-                <a href="#" id="prizes-link" class="hover:text-gray-900 transition-colors">Prizes</a>
-            </div>
-            <p class="mt-4 text-xs text-gray-500 font-transformer tracking-wider">
-                Phoenix x Mozilla - Activating Creative Protocols.
-            </p>
-        </div>
-    </footer>
-
-    <!-- Modals (Styling updated for white theme) -->
-    
-    <!-- Rules Modal -->
     <div id="rules-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
-        <!-- [MODIFIED] Added frosted glass effect classes, more opacity for modal readability -->
         <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
             <div class="relative z-20 max-h-[80vh] flex flex-col">
-                <!-- Modal Header -->
                 <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
                     <h3 class="font-transformer text-2xl text-gray-900">Rules & Guidelines</h3>
                     <button class="modal-close-btn text-gray-400 hover:text-gray-900 transition-colors">
                         <i data-lucide="x" class="w-8 h-8"></i>
                     </button>
                 </div>
-                <!-- Modal Body -->
                 <div class="p-8 overflow-y-auto space-y-6">
                     <div class="space-y-2">
                         <h4 class="font-transformer text-lg text-gray-900">1. Event Duration</h4>
@@ -557,7 +540,6 @@
                         <p class="text-gray-700 text-base">All participants must adhere to the Mozilla Community Participation Guidelines. Be respectful, supportive, and collaborative. Any form of harassment will result in immediate disqualification.</p>
                     </div>
                 </div>
-                <!-- Modal Footer -->
                 <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
                     <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
                         Close
@@ -567,19 +549,15 @@
         </div>
     </div>
 
-    <!-- Tools Modal -->
     <div id="tools-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
-        <!-- [MODIFIED] Added frosted glass effect classes, more opacity for modal readability -->
         <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
             <div class="relative z-20 max-h-[80vh] flex flex-col">
-                <!-- Modal Header -->
                 <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
                     <h3 class="font-transformer text-2xl text-gray-900">Permitted Tools & Tech</h3>
                     <button class="modal-close-btn text-gray-400 hover:text-gray-900 transition-colors">
                         <i data-lucide="x" class="w-8 h-8"></i>
                     </button>
                 </div>
-                <!-- Modal Body -->
                 <div class="p-8 overflow-y-auto space-y-4 text-gray-700">
                     <p>You have full creative freedom. You can use any frameworks, libraries, and technologies you are comfortable with.</p>
                     <h4 class="font-transformer text-lg text-gray-900 pt-2">Suggestions</h4>
@@ -590,7 +568,6 @@
                         <li><strong>AI Tools:</strong> You are welcome to use AI assistants like Gemini, Copilot, etc., to help you code, but you must disclose their use in your `README.md`.</li>
                     </ul>
                 </div>
-                <!-- Modal Footer -->
                 <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
                     <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
                         Close
@@ -600,19 +577,15 @@
         </div>
     </div>
 
-    <!-- Organizers Modal -->
     <div id="organizers-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
-        <!-- [MODIFIED] Added frosted glass effect classes, more opacity for modal readability -->
         <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
             <div class="relative z-20 max-h-[80vh] flex flex-col">
-                <!-- Modal Header -->
                 <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
                     <h3 class="font-transformer text-2xl text-gray-900">Organizing Team</h3>
                     <button class="modal-close-btn text-gray-400 hover:text-gray-900 transition-colors">
                         <i data-lucide="x" class="w-8 h-8"></i>
                     </button>
                 </div>
-                <!-- Modal Body -->
                 <div class="p-8 overflow-y-auto space-y-4 text-gray-700">
                     <p>This event is brought to you by a collaboration between the <strong class="text-gray-900">Mozilla Club</strong> and the <strong class="text-gray-900">Phoenix Club</strong> at Vibe Coding College.</p>
                     <h4 class="font-transformer text-lg text-gray-900 pt-2">Core Team</h4>
@@ -623,7 +596,6 @@
                         <li><strong>[Member Name]:</strong> @MOZIALLA</li>
                     </ul>
                 </div>
-                <!-- Modal Footer -->
                 <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
                     <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
                         Close
@@ -633,19 +605,16 @@
         </div>
     </div>
 
-    <!-- Prizes Modal -->
+
     <div id="prizes-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
-        <!-- [MODIFIED] Added frosted glass effect classes, more opacity for modal readability -->
         <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
             <div class="relative z-20 max-h-[80vh] flex flex-col">
-                <!-- Modal Header -->
                 <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
                     <h3 class="font-transformer text-2xl text-gray-900">Prizes & Recognition</h3>
                     <button class="modal-close-btn text-gray-400 hover:text-gray-900 transition-colors">
                         <i data-lucide="x" class="w-8 h-8"></i>
                     </button>
                 </div>
-                <!-- Modal Body -->
                 <div class="p-8 overflow-y-auto space-y-4 text-gray-700">
                     <p>All participants who successfully transmit a project will receive an exclusive "Vibe Coding: Transform" digital badge and certificate of participation.</p>
                     
@@ -674,7 +643,6 @@
                     </div>
 
                 </div>
-                <!-- Modal Footer -->
                 <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
                     <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
                         Close
@@ -684,24 +652,20 @@
         </div>
     </div>
 
-    <!-- [NEW] Mozilla Modal -->
     <div id="mozilla-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
-        <!-- [MODIFIED] Added frosted glass effect classes, more opacity for modal readability -->
         <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
             <div class="relative z-20 max-h-[80vh] flex flex-col">
-                <!-- Modal Header -->
                 <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
                     <h3 class="font-transformer text-2xl text-gray-900">Mozilla Club</h3>
                     <button class="modal-close-btn text-gray-400 hover:text-gray-900 transition-colors">
                         <i data-lucide="x" class="w-8 h-8"></i>
                     </button>
                 </div>
-                <!-- Modal Body -->
                 <div class="p-8 overflow-y-auto space-y-4 text-gray-700">
                     <p>More details about the Mozilla Club here!</p>
                     <p>Part of the global Mozilla community, our club champions an open, accessible, and inclusive internet. We build, advocate, and educate to keep the web a public resource for all.</p>
                 </div>
-                <!-- Modal Footer -->
+                
                 <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
                     <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
                         Close
@@ -711,24 +675,20 @@
         </div>
     </div>
 
-    <!-- [NEW] Phoenix Modal -->
+
     <div id="phoenix-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
-        <!-- [MODIFIED] Added frosted glass effect classes, more opacity for modal readability -->
         <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
             <div class="relative z-20 max-h-[80vh] flex flex-col">
-                <!-- Modal Header -->
                 <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
                     <h3 class="font-transformer text-2xl text-gray-900">Phoenix Club</h3>
                     <button class="modal-close-btn text-gray-400 hover:text-gray-900 transition-colors">
                         <i data-lucide="x" class="w-8 h-8"></i>
                     </button>
                 </div>
-                <!-- Modal Body -->
                 <div class="p-8 overflow-y-auto space-y-4 text-gray-700">
                     <p>More details about the Phoenix Club here!</p>
                      <p>Rising from the ashes of old ideas, the Phoenix Club is the hub for innovation and creativity on campus. We explore new technologies, from AI to web3, and empower students to build the future.</p>
                 </div>
-                <!-- Modal Footer -->
                 <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
                     <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
                         Close
@@ -737,17 +697,75 @@
             </div>
         </div>
     </div>
-    <!-- [END] Modals -->
 
 
-    <!-- Link to your countdown.js file -->
     <script src="countdown.js" defer></script> 
     
-    <!-- Modal, Menu, and Icon Logic Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Loader Logic ---
+            
+            let audioInitialized = false;
+            let clickSynth;
+
+            const playClickSound = () => {
+                if (audioInitialized && clickSynth) {
+                    try {
+                        clickSynth.triggerAttackRelease("C5", "8n");
+                    } catch (e) {
+                        console.warn("Could not play click sound:", e);
+                    }
+                }
+            };
+
+            const initAudio = async () => {
+                if (audioInitialized) return;
+                
+                try {
+                    await Tone.start();
+                    audioInitialized = true;
+                    
+                    clickSynth = new Tone.Synth({
+                        oscillator: { type: "sine" },
+                        envelope: {
+                            attack: 0.005,
+                            decay: 0.1,
+                            sustain: 0.01,
+                            release: 0.1
+                        }
+                    }).toDestination();
+
+                    console.log("Audio engine initialized.");
+                    addAllClickListeners();
+                } catch (e) {
+                    console.error("Audio could not be started:", e);
+                }
+            };
+            
+            const addAllClickListeners = () => {
+                document.querySelectorAll('button, a[href], .modal-close-btn').forEach(el => {
+                    if (!el.dataset.audioAttached) {
+                        el.addEventListener('click', playClickSound);
+                        el.dataset.audioAttached = 'true';
+                    }
+                });
+            };
+
+            
+            const startButton = document.getElementById('start-button');
+            if (startButton) {
+                startButton.addEventListener('click', initAudio, { once: true });
+            }
+            
             const loader = document.getElementById('loader-overlay');
+            const welcomeOverlay = document.getElementById('welcome-overlay');
+            const enterButton = document.getElementById('enter-button');
+            const mainContent = document.getElementById('main-content');
+            const bgAudio = document.getElementById('background-audio');
+
+            if (bgAudio) {
+                bgAudio.volume = 0.1;
+            }
+
             window.addEventListener('load', () => {
                 if (loader) {
                     loader.classList.add('hidden');
@@ -755,12 +773,32 @@
                         if (loader.style) {
                             loader.style.display = 'none';
                         }
-                    }, 500); // Match transition duration
+                    }, 500); 
                 }
             });
-            // --- End of Loader Logic ---
 
-            // --- Mobile Menu Toggle ---
+            if (enterButton && welcomeOverlay && mainContent) {
+                enterButton.addEventListener('click', async () => {
+                    
+                    await initAudio(); 
+                    playClickSound(); 
+                    
+                    if (bgAudio) {
+                        bgAudio.play().catch(e => console.warn("Background audio failed to play:", e));
+                    }
+                    
+                    welcomeOverlay.classList.add('hidden');
+                    mainContent.classList.remove('hidden');
+                    
+                    setTimeout(() => {
+                        if (welcomeOverlay.style) {
+                            welcomeOverlay.style.display = 'none';
+                        }
+                    }, 500);
+                }, { once: true });
+            }
+            
+           
             const menuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             const menuIcon = document.getElementById('menu-icon');
@@ -775,27 +813,27 @@
                         menuIcon.setAttribute('data-lucide', 'x');
                     }
                     if (typeof lucide !== 'undefined') {
-                        lucide.createIcons(); // Re-render the new icon
+                        lucide.createIcons(); 
                     }
                 });
             }
-            // --- End of Mobile Menu ---
+            
 
 
-            // Activate Lucide Icons on initial load
+            
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             }
 
-            // --- Generic Modal Setup ---
+       
             const modalMap = {
                 'rules-link-desktop': 'rules-modal',
                 'rules-link-mobile': 'rules-modal',
                 'tools-link': 'tools-modal',
                 'organizers-link': 'organizers-modal',
                 'prizes-link': 'prizes-modal',
-                'mozilla-link': 'mozilla-modal', /* [NEW] */
-                'phoenix-link': 'phoenix-modal'  /* [NEW] */
+                'mozilla-link': 'mozilla-modal', 
+                'phoenix-link': 'phoenix-modal'  
             };
 
             const allModalIds = [
@@ -803,8 +841,8 @@
                 'tools-modal', 
                 'organizers-modal', 
                 'prizes-modal', 
-                'mozilla-modal', /* [NEW] */
-                'phoenix-modal'  /* [NEW] */
+                'mozilla-modal', 
+                'phoenix-modal'  
             ];
 
             const showModal = (modalId) => {
@@ -861,33 +899,29 @@
                     });
                 }
             });
-            // --- [END] Generic Modal Setup ---
-
-            // --- GIF Slideshow Logic ---
+   
             let currentSlide = 0;
             const slides = document.querySelectorAll('.gif-slide');
             const slideCount = slides.length;
 
             if (slideCount > 0) {
-                // Set the first slide as active immediately
+                
                 slides[0].classList.add('active');
 
                 setInterval(() => {
-                    // Remove active class from current slide
+                   
                     slides[currentSlide].classList.remove('active');
                     
-                    // Move to the next slide
+                    
                     currentSlide = (currentSlide + 1) % slideCount;
                     
-                    // Add active class to the new current slide
+                    
                     slides[currentSlide].classList.add('active');
-                }, 5000); // Change slide every 5 seconds (5000ms)
+                }, 5000); 
             }
-            // --- [END] GIF Slideshow Logic ---
 
         });
     </script>
 </body>
 </html>
-
 
