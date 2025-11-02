@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vibe Coding - Contest by Mozilla X Phoenix</title>
     
-    <link rel="icon" href="logo.png" type="image/png">
+    <!-- Using a placeholder for the logo -->
+    <link rel="icon" href="https://placehold.co/64x64/0a0a1a/f59e0b?text=VC" type="image/png">
     
-<script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +35,8 @@
             width: 100%;
             height: 100%;
             
-            background-image: url('DE.jpg'); 
+            /* Fixed broken image link with a placeholder */
+            background-image: url('https://placehold.co/1920x1080/f3f4f6/e5e7eb?text=Vibe+Coding'); 
             background-size: cover;
             background-position: center;
             opacity: 0.05; 
@@ -84,7 +86,7 @@
             }
         }
 
-       
+        
         #loader-overlay.hidden {
             opacity: 0;
             pointer-events: none;
@@ -164,7 +166,7 @@
             font-family: 'Orbitron', sans-serif;
         }
         
-       
+        
         #gif-slideshow {
             position: relative;
             width: 100%;
@@ -244,7 +246,7 @@
             box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3);
         }
 
-       
+        
         .feature-icon {
             background-color: #0a0a1a;
             color: #f59e0b; 
@@ -263,7 +265,8 @@
     <div id="animated-bg"></div>
 
     <div id="loader-overlay">
-        <img id="loader-image" src="logo.png" alt="Loading Vibe Coding..." />
+        <!-- Fixed broken loader image -->
+        <img id="loader-image" src="https://placehold.co/200x200/0a0a1a/f59e0b?text=VC" alt="Loading Vibe Coding..." />
     </div>
     
     <div id="welcome-overlay">
@@ -281,7 +284,8 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
                 
                 <div class="flex items-center">
-                    <img src="logo.png" alt="College Logo" class="h-10 w-10 mr-3 rounded-full border border-gray-300 p-0.5" onerror="this.src='https://placehold.co/40x40/0a0a1a/ffffff?text=VC'">
+                    <!-- Fixed broken logo image -->
+                    <img src="https://placehold.co/40x40/0a0a1a/f59e0b?text=VC" alt="College Logo" class="h-10 w-10 mr-3 rounded-full border border-gray-300 p-0.5" onerror="this.src='https://placehold.co/40x40/0a0a1a/ffffff?text=VC'">
                     
                     <span class="font-transformer text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900">
                         <span class="text-gray-600 text-sm sm:text-base md:text-lg block sm:inline">Mozilla X Phoenix</span>
@@ -369,8 +373,8 @@
                     </div>
                     
                     <div id="timer-ended" class="relative z-20 hidden p-6 rounded-lg bg-red-100 border border-red-300">
-                            <h2 class="text-2xl sm:text-3xl font-bold font-transformer text-red-700 tracking-wider">TRANSMISSION OVERRIDE</h2>
-                            <p class="text-base sm:text-lg text-red-800 mt-2">The 48-hour submission window has closed. Data streams are terminated.</p>
+                        <h2 class="text-2xl sm:text-3xl font-bold font-transformer text-red-700 tracking-wider">TRANSMISSION OVERRIDE</h2>
+                        <p class="text-base sm:text-lg text-red-800 mt-2">The 48-hour submission window has closed. Data streams are terminated.</p>
                     </div>
                 </section>
                 
@@ -378,11 +382,11 @@
                 <div id="gif-slideshow" class="w-full shadow-lg"> 
             
                     <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXY0c3B6YWRodW5tcGVybXVtd2l0amxzYTh0NGJxdnF6eHd1ZjdmcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nbTFgBxIzQ2GlyONVG/giphy.gif" alt="Transformers Optimus Prime transforming animation" class="gif-slide active" 
-                            onerror="this.src='https://placehold.co/512x384/0a0a1a/e0e0e0?text=Animation+Error'">
+                         onerror="this.src='https://placehold.co/512x384/0a0a1a/e0e0e0?text=Animation+Error'">
                     <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExemtscjVsdzJ6ZHN5bGU4Nmdibnd1M3M3cjJnNWx1ejQ0dmRnbnFtbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pf0GhIWekXeInoJKM8/giphy.gif" alt="Bumblebee transforming animation" class="gif-slide" 
-                            onerror="this.src='https://placehold.co/512x384/0a0a1a/e0e0e0?text=Animation+Error'">
+                         onerror="this.src='https://placehold.co/512x384/0a0a1a/e0e0e0?text=Animation+Error'">
                     <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzZybTVhMTU1ODNsbXRvazlkOWpobjE2OHU5cXMyMWZlaW1xNDljYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bGCDhW2AKpylrdHx29/giphy.gif" alt="Optimus Prime truck animation" class="gif-slide" 
-                            onerror="this.src='https://placehold.co/512x384/0a0a1a/e0e0e0?text=Animation+Error'">
+                         onerror="this.src='https://placehold.co/512x384/0a0a1a/e0e0e0?text=Animation+Error'">
                     
                 
                     <div class="absolute bottom-0 left-0 w-full z-10 bg-black/80 text-white p-6 sm:p-8 animate-fade-in-up delay-4 backdrop-blur-sm">
@@ -401,9 +405,9 @@
                         <h2 class="text-xl sm:text-2xl font-bold font-transformer text-gray-900 mb-4">SUBMISSION PORTAL</h2>
                         <p class="text-gray-700 mb-6 text-base sm:text-lg">Transmit your completed project files.</p>
                         <a href="submission.html" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            class="font-transformer btn-classic btn-lg btn-primary">
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="font-transformer btn-classic btn-lg btn-primary">
                             OPEN PORTAL
                         </a>
                     </div>
@@ -698,7 +702,10 @@
         </div>
     </div>
 
-
+    <!-- 
+      This is the script for the countdown timer. 
+      It's now correctly separated from the submission logic.
+    -->
     <script src="countdown.js" defer></script> 
     
     <script>
@@ -753,6 +760,8 @@
             
             const startButton = document.getElementById('start-button');
             if (startButton) {
+                // We let countdown.js handle the main 'click' logic,
+                // but we can still hook in here to init audio.
                 startButton.addEventListener('click', initAudio, { once: true });
             }
             
@@ -798,7 +807,7 @@
                 }, { once: true });
             }
             
-           
+            
             const menuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             const menuIcon = document.getElementById('menu-icon');
@@ -825,7 +834,7 @@
                 lucide.createIcons();
             }
 
-       
+        
             const modalMap = {
                 'rules-link-desktop': 'rules-modal',
                 'rules-link-mobile': 'rules-modal',
@@ -899,7 +908,7 @@
                     });
                 }
             });
-   
+    
             let currentSlide = 0;
             const slides = document.querySelectorAll('.gif-slide');
             const slideCount = slides.length;
