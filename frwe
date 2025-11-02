@@ -26,35 +26,7 @@
             background-color: #ffffff; /* White background */
             /* [REMOVED] color: #0a0a1a; */
             overflow-x: hidden; /* Prevent horizontal scroll */
-            position: relative; /* [NEW] Ensure z-index stacking context for bg */
         }
-
-        /* [NEW] Animated Background */
-        #animated-bg {
-            position: fixed;
-            inset: 0; /* (top: 0, left: 0, right: 0, bottom: 0) */
-            width: 100%;
-            height: 100%;
-            /* Abstract tech image from Unsplash */
-            background-image: url('DE.jpg'); 
-            background-size: cover;
-            background-position: center;
-            opacity: 0.05; /* Start at "way low" */
-            animation: breathe-bg 8s infinite ease-in-out;
-            z-index: -1; /* Sits behind all content */
-        }
-
-        @keyframes breathe-bg {
-            0%, 100% {
-                opacity: 0.05;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.12;
-                transform: scale(1.05); /* Added subtle zoom for more "breathing" */
-            }
-        }
-
 
         /* --- Loader Screen --- */
         #loader-overlay {
@@ -100,18 +72,18 @@
             letter-spacing: 0.05em;
         }
 
-        /* --- [MODIFIED] Classic Container Style (Frosted Glass) --- */
+        /* --- Classic Container Style --- */
         .tech-container {
             position: relative;
-            /* [REMOVED] background: #ffffff; */
-            border: 1px solid rgba(224, 224, 224, 0.4); /* [MODIFIED] More subtle border */
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1); /* [MODIFIED] Enhanced shadow for glass */
+            background: #ffffff; /* White background */
+            border: 1px solid #e0e0e0; /* Light grey border */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Classic shadow */
             overflow: hidden; 
             transition: all 0.3s ease-out; /* Added transition */
         }
         .tech-container:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12); /* [MODIFIED] Enhanced hover shadow */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07);
         }
         
         .tech-container > * {
@@ -138,7 +110,6 @@
         .animate-fade-in-up.delay-3 { animation-delay: 0.6s; }
         .animate-fade-in-up.delay-4 { animation-delay: 0.8s; }
         .animate-fade-in-up.delay-5 { animation-delay: 1.0s; }
-        .animate-fade-in-up.delay-6 { animation-delay: 1.2s; } /* [NEW] Delay for new section */
 
         
         /* --- Timer Box Styling --- */
@@ -164,7 +135,6 @@
             /* [NEW] Added for visual separation */
             border-top: 1px solid #e0e0e0;
             border-bottom: 1px solid #e0e0e0;
-            border-radius: 0.75rem; /* [NEW] Rounded corners for the slideshow */
         }
         
         .gif-slide {
@@ -234,22 +204,10 @@
             box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3);
         }
 
-        /* [NEW] Feature Icon Style */
-        .feature-icon {
-            background-color: #0a0a1a;
-            color: #f59e0b; /* Amber 500 */
-            padding: 0.75rem; /* p-3 */
-            border-radius: 0.5rem; /* rounded-lg */
-            display: inline-flex;
-        }
-
     </style>
 </head>
 <!-- body tag for full-height flex layout -->
 <body class="text-gray-900 min-h-screen flex flex-col">
-
-    <!-- [NEW] Animated Background -->
-    <div id="animated-bg"></div>
 
     <!-- Loader Screen -->
     <div id="loader-overlay">
@@ -314,10 +272,8 @@
                     Energize Your Creations. Transmit Your Code.
                 </p>
             </div>
-            
             <!-- Timer Section -->
-            <!-- [MODIFIED] Added frosted glass effect classes -->
-            <section id="timer-section" class="tech-container w-full max-w-3xl p-6 md:p-8 rounded-xl text-center my-10 animate-fade-in-up delay-2 bg-white/70 backdrop-blur-lg">
+            <section id="timer-section" class="tech-container w-full max-w-3xl p-6 md:p-8 rounded-xl text-center my-10 animate-fade-in-up delay-2">
             
                 <!-- Start Button -->
                 <div id="start-button-container" class="relative z-20">
@@ -367,7 +323,7 @@
             
 
             <!-- [MODIFIED] GIF Slideshow is now the parent for the Mission Briefing -->
-            <div id="gif-slideshow" class="w-full shadow-lg"> <!-- [NEW] Added shadow -->
+            <div id="gif-slideshow" class="w-full">
                 <!-- GIF Slides -->
                 <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXY0c3B6YWRodW5tcGVybXVtd2l0amxzYTh0NGJxdnF6eHd1ZjdmcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nbTFgBxIzQ2GlyONVG/giphy.gif" alt="Transformers Optimus Prime transforming animation" class="gif-slide active" 
                         onerror="this.src='https://placehold.co/512x384/0a0a1a/e0e0e0?text=Animation+Error'">
@@ -392,8 +348,7 @@
 
             
             <!-- Submission Portal Section -->
-            <!-- [MODIFIED] Added frosted glass effect classes -->
-            <section class="tech-container w-full max-w-3xl p-6 md:p-8 rounded-xl text-center my-10 animate-fade-in-up delay-3 bg-white/70 backdrop-blur-lg">
+            <section class="tech-container w-full max-w-3xl p-6 md:p-8 rounded-xl text-center my-10 animate-fade-in-up delay-3">
                 <div class="relative z-20">
                     <h2 class="text-xl sm:text-2xl font-bold font-transformer text-gray-900 mb-4">SUBMISSION PORTAL</h2>
                     <p class="text-gray-700 mb-6 text-base sm:text-lg">Transmit your completed project files.</p>
@@ -409,96 +364,12 @@
         </section>
         <!-- [END] Home Section -->
 
-        <!-- [NEW] Awesome Content Section -->
-        <!-- [MODIFIED] Removed bg-gray-50 to let animated bg show through -->
-        <section class="w-full py-16 sm:py-24">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-start">
-                    
-                    <!-- Column 1: Why Participate? -->
-                    <div class="space-y-8 animate-fade-in-up delay-5">
-                        <h2 class="font-transformer text-3xl sm:text-4xl font-bold text-gray-900 tracking-wider">
-                            WHY PLUG IN?
-                        </h2>
-                        <p class="text-lg text-gray-700">
-                            This isn't just another hackathon. It's a 48-hour sprint to build, learn, and showcase your skills. Here’s the data packet on why you should deploy.
-                        </p>
-                        <ul class="space-y-6">
-                            <!-- Feature 1 -->
-                            <li class="flex items-start space-x-4">
-                                <div class="feature-icon mt-1 flex-shrink-0">
-                                    <i data-lucide="zap" class="w-6 h-6"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-transformer text-lg font-bold text-gray-900">Energize Your Ideas</h4>
-                                    <p class="text-gray-700">Go from concept to creation. This is your dedicated time to build that project you've been thinking about, powered by the "Transform" theme.</p>
-                                </div>
-                            </li>
-                            <!-- Feature 2 -->
-                            <li class="flex items-start space-x-4">
-                                <div class="feature-icon mt-1 flex-shrink-0">
-                                    <i data-lucide="award" class="w-6 h-6"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-transformer text-lg font-bold text-gray-900">Win Awesome Prizes</h4>
-                                    <p class="text-gray-700">Compete for glory and epic loot. Our prize pool includes mechanical keyboards, high-end gear, and exclusive winner's trophies.</p>
-                                </div>
-                            </li>
-                            <!-- Feature 3 -->
-                            <li class="flex items-start space-x-4">
-                                <div class="feature-icon mt-1 flex-shrink-0">
-                                    <i data-lucide="users" class="w-6 h-6"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-transformer text-lg font-bold text-gray-900">Join the Community</h4>
-                                    <p class="text-gray-700">Connect with fellow coders, designers, and tech enthusiasts from Mozilla and Phoenix. Share knowledge, get feedback, and make new connections.</p>
-
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Column 2: Organizers -->
-                    <div class="space-y-8 animate-fade-in-up delay-6">
-                        <h2 class="font-transformer text-3xl sm:text-4xl font-bold text-gray-900 tracking-wider">
-                            PROTOCOL CURATORS
-                        </h2>
-                        
-                        <!-- [MODIFIED] Added frosted glass effect classes -->
-                        <div class="p-6 rounded-lg border border-gray-200/50 shadow-lg transition-all duration-300 hover:shadow-xl bg-white/70 backdrop-blur-lg">
-                            <h3 class="font-transformer text-xl font-bold text-gray-900">MOZILLA CLUB</h3>
-                            <p class="text-gray-700 mt-2 mb-4">
-                                Part of the global Mozilla community, our club champions an open, accessible, and inclusive internet. We build, advocate, and educate to keep the web a public resource for all.
-                            </p>
-                            <!-- [MODIFIED] Added id="mozilla-link" -->
-                            <a href="#" id="mozilla-link" class="font-transformer text-sm font-bold text-gray-900 hover:text-amber-600 transition-colors group">
-                                Learn More <i data-lucide="arrow-right" class="w-4 h-4 inline-block -mt-0.5 transition-transform duration-300 group-hover:translate-x-1"></i>
-                            </a>
-                        </div>
-                        
-                        <!-- [MODIFIED] Added frosted glass effect classes -->
-                        <div class="p-6 rounded-lg border border-gray-200/50 shadow-lg transition-all duration-300 hover:shadow-xl bg-white/70 backdrop-blur-lg">
-                            <h3 class="font-transformer text-xl font-bold text-gray-900">PHOENIX CLUB</h3>
-                            <p class="text-gray-700 mt-2 mb-4">
-                                Rising from the ashes of old ideas, the Phoenix Club is the hub for innovation and creativity on campus. We explore new technologies, from AI to web3, and empower students to build the future.
-                            </p>
-                            <!-- [MODIFIED] Added id="phoenix-link" -->
-                            <a href="#" id="phoenix-link" class="font-transformer text-sm font-bold text-gray-900 hover:text-amber-600 transition-colors group">
-                                Learn More <i data-lucide="arrow-right" class="w-4 h-4 inline-block -mt-0.5 transition-transform duration-300 group-hover:translate-x-1"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-        <!-- [END] Awesome Content Section -->
-
+        <!-- [REMOVED] Redundant containers -->
 
     </main>
 
-    <!-- [MODIFIED] Footer: Added subtle glass effect -->
-    <footer class="w-full bg-white/80 backdrop-blur-sm border-t border-gray-200/50 py-8 relative z-10">
+    <!-- Footer Section -->
+    <footer class="w-full bg-white border-t border-gray-200 py-8 relative z-10">
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
             
             <!-- Icon Links -->
@@ -534,11 +405,10 @@
     
     <!-- Rules Modal -->
     <div id="rules-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
-        <!-- [MODIFIED] Added frosted glass effect classes, more opacity for modal readability -->
-        <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
+        <div class="bg-white border border-gray-200 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
             <div class="relative z-20 max-h-[80vh] flex flex-col">
                 <!-- Modal Header -->
-                <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
+                <div class="flex justify-between items-center p-6 border-b border-gray-200">
                     <h3 class="font-transformer text-2xl text-gray-900">Rules & Guidelines</h3>
                     <button class="modal-close-btn text-gray-400 hover:text-gray-900 transition-colors">
                         <i data-lucide="x" class="w-8 h-8"></i>
@@ -569,7 +439,7 @@
                     </div>
                 </div>
                 <!-- Modal Footer -->
-                <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
+                <div class="p-6 bg-gray-50 border-t border-gray-200 text-right">
                     <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
                         Close
                     </button>
@@ -580,11 +450,10 @@
 
     <!-- Tools Modal -->
     <div id="tools-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
-        <!-- [MODIFIED] Added frosted glass effect classes, more opacity for modal readability -->
-        <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
+        <div class="bg-white border border-gray-200 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
             <div class="relative z-20 max-h-[80vh] flex flex-col">
                 <!-- Modal Header -->
-                <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
+                <div class="flex justify-between items-center p-6 border-b border-gray-200">
                     <h3 class="font-transformer text-2xl text-gray-900">Permitted Tools & Tech</h3>
                     <button class="modal-close-btn text-gray-400 hover:text-gray-900 transition-colors">
                         <i data-lucide="x" class="w-8 h-8"></i>
@@ -602,7 +471,7 @@
                     </ul>
                 </div>
                 <!-- Modal Footer -->
-                <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
+                <div class="p-6 bg-gray-50 border-t border-gray-200 text-right">
                     <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
                         Close
                     </button>
@@ -613,11 +482,10 @@
 
     <!-- Organizers Modal -->
     <div id="organizers-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
-        <!-- [MODIFIED] Added frosted glass effect classes, more opacity for modal readability -->
-        <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
+        <div class="bg-white border border-gray-200 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
             <div class="relative z-20 max-h-[80vh] flex flex-col">
                 <!-- Modal Header -->
-                <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
+                <div class="flex justify-between items-center p-6 border-b border-gray-200">
                     <h3 class="font-transformer text-2xl text-gray-900">Organizing Team</h3>
                     <button class="modal-close-btn text-gray-400 hover:text-gray-900 transition-colors">
                         <i data-lucide="x" class="w-8 h-8"></i>
@@ -635,7 +503,7 @@
                     </ul>
                 </div>
                 <!-- Modal Footer -->
-                <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
+                <div class="p-6 bg-gray-50 border-t border-gray-200 text-right">
                     <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
                         Close
                     </button>
@@ -646,11 +514,10 @@
 
     <!-- Prizes Modal -->
     <div id="prizes-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
-        <!-- [MODIFIED] Added frosted glass effect classes, more opacity for modal readability -->
-        <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
+        <div class="bg-white border border-gray-200 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
             <div class="relative z-20 max-h-[80vh] flex flex-col">
                 <!-- Modal Header -->
-                <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
+                <div class="flex justify-between items-center p-6 border-b border-gray-200">
                     <h3 class="font-transformer text-2xl text-gray-900">Prizes & Recognition</h3>
                     <button class="modal-close-btn text-gray-400 hover:text-gray-900 transition-colors">
                         <i data-lucide="x" class="w-8 h-8"></i>
@@ -686,61 +553,7 @@
 
                 </div>
                 <!-- Modal Footer -->
-                <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
-                    <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- [NEW] Mozilla Modal -->
-    <div id="mozilla-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
-        <!-- [MODIFIED] Added frosted glass effect classes, more opacity for modal readability -->
-        <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
-            <div class="relative z-20 max-h-[80vh] flex flex-col">
-                <!-- Modal Header -->
-                <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
-                    <h3 class="font-transformer text-2xl text-gray-900">Mozilla Club</h3>
-                    <button class="modal-close-btn text-gray-400 hover:text-gray-900 transition-colors">
-                        <i data-lucide="x" class="w-8 h-8"></i>
-                    </button>
-                </div>
-                <!-- Modal Body -->
-                <div class="p-8 overflow-y-auto space-y-4 text-gray-700">
-                    <p>More details about the Mozilla Club here!</p>
-                    <p>Part of the global Mozilla community, our club champions an open, accessible, and inclusive internet. We build, advocate, and educate to keep the web a public resource for all.</p>
-                </div>
-                <!-- Modal Footer -->
-                <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
-                    <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- [NEW] Phoenix Modal -->
-    <div id="phoenix-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
-        <!-- [MODIFIED] Added frosted glass effect classes, more opacity for modal readability -->
-        <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
-            <div class="relative z-20 max-h-[80vh] flex flex-col">
-                <!-- Modal Header -->
-                <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
-                    <h3 class="font-transformer text-2xl text-gray-900">Phoenix Club</h3>
-                    <button class="modal-close-btn text-gray-400 hover:text-gray-900 transition-colors">
-                        <i data-lucide="x" class="w-8 h-8"></i>
-                    </button>
-                </div>
-                <!-- Modal Body -->
-                <div class="p-8 overflow-y-auto space-y-4 text-gray-700">
-                    <p>More details about the Phoenix Club here!</p>
-                     <p>Rising from the ashes of old ideas, the Phoenix Club is the hub for innovation and creativity on campus. We explore new technologies, from AI to web3, and empower students to build the future.</p>
-                </div>
-                <!-- Modal Footer -->
-                <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
+                <div class="p-6 bg-gray-50 border-t border-gray-200 text-right">
                     <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
                         Close
                     </button>
@@ -804,19 +617,10 @@
                 'rules-link-mobile': 'rules-modal',
                 'tools-link': 'tools-modal',
                 'organizers-link': 'organizers-modal',
-                'prizes-link': 'prizes-modal',
-                'mozilla-link': 'mozilla-modal', /* [NEW] */
-                'phoenix-link': 'phoenix-modal'  /* [NEW] */
+                'prizes-link': 'prizes-modal'
             };
 
-            const allModalIds = [
-                'rules-modal', 
-                'tools-modal', 
-                'organizers-modal', 
-                'prizes-modal', 
-                'mozilla-modal', /* [NEW] */
-                'phoenix-modal'  /* [NEW] */
-            ];
+            const allModalIds = ['rules-modal', 'tools-modal', 'organizers-modal', 'prizes-modal'];
 
             const showModal = (modalId) => {
                 const modal = document.getElementById(modalId);
@@ -900,5 +704,3 @@
     </script>
 </body>
 </html>
-
-
