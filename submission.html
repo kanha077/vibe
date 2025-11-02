@@ -6,7 +6,7 @@
     <title>Vibe Coding - Submission Portal</title>
     
     <!-- Favicon -->
-    <link rel="icon" href="https://placehold.co/64x64/0a0a1a/f59e0b?text=VC" type="image/png">
+    <link rel="icon" href="logo.png" type="image/png">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -37,7 +37,7 @@
             width: 100%;
             height: 100%;
             /* Fixed broken image link */
-            background-image: url('https://placehold.co/1920x1080/f3f4f6/e5e7eb?text=Vibe+Coding'); 
+            background-image: url('logo.png'); 
             background-size: cover;
             background-position: center;
             opacity: 0.05;
@@ -99,11 +99,11 @@
              width: 1.25rem;
              height: 1.25rem;
              border-radius: 0.25rem;
-        }
+       }
          input[type="checkbox"]:focus {
              outline: none;
              box-shadow: 0 0 0 2px rgba(10, 10, 26, 0.1);
-        }
+       }
         
         input[type="text"]::placeholder, input[type="url"]::placeholder, textarea::placeholder {
             color: #6b7280;
@@ -182,7 +182,7 @@
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
             <div class="flex items-center">
                 <!-- Fixed broken logo image -->
-                <img src="https://placehold.co/40x40/0a0a1a/f59e0b?text=VC" alt="College Logo" class="h-10 w-10 mr-3 rounded-full border border-gray-300 p-0.5" onerror="this.src='https://placehold.co/40x40/0a0a1a/ffffff?text=VC'">
+                <img src="logo.png" alt="College Logo" class="h-10 w-10 mr-3 rounded-full border border-gray-300 p-0.5" onerror="this.src='https://placehold.co/40x40/0a0a1a/ffffff?text=VC'">
                 <span class="font-transformer text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900">
                     <span class="text-gray-600 text-sm sm:text-base md:text-lg block sm:inline">Mozilla X Phoenix</span>
                     <span class="block sm:inline sm:ml-2">VIBE-CODING</span>
@@ -219,12 +219,13 @@
         <section id="timer-section" class="tech-container w-full max-w-3xl p-6 md:p-8 rounded-xl text-center my-10 bg-white/70 backdrop-blur-lg">
             
             <!-- Start Button -->
-            <div id="start-button-container" class="relative z-20">
-                <h2 class="text-2xl font-bold font-transformer text-yellow-600 mb-4">INITIATE SEQUENCE</h2>
-                <p class="text-gray-700 mb-6">Activate the 48-hour submission window. This action is irreversible.</p>
-                <button id="start-button" class="font-transformer btn-classic btn-lg btn-deploy"> 
-                    DEPLOY COUNTDOWN
-                </button>
+            <!-- This is hidden by default here, countdown.js will unhide if needed -->
+            <div id="start-button-container" class="relative z-20 hidden">
+                <h2 class="text-2xl font-bold font-transformer text-yellow-600 mb-4">TIMER NOT ACTIVE</h2>
+                <p class="text-gray-700 mb-6">Please go to the Home page to activate the 48-hour submission window.</p>
+                <a href="index.html" class="font-transformer btn-classic btn-lg btn-primary"> 
+                    GO TO HOME
+                </a>
             </div>
 
             <!-- Timer Display -->
@@ -249,9 +250,7 @@
                         <span class="block text-xs sm:text-sm text-gray-500 mt-1">SECONDS</span>
                     </div>
                 </div>
-                <button id="reset-button" class="absolute top-2 right-2 text-xs text-gray-500 hover:text-red-600 transition-colors p-1 rounded bg-gray-100/80 hover:bg-gray-200/80 z-30">
-                    [DEV: Reset Timer]
-                </button>
+                <!-- Note: The dev reset button is not included on this page, only on index.html -->
             </div>
             
             <!-- Timer Ended -->
@@ -486,8 +485,11 @@
         </div>
     </div>
 
-    <!-- This script handles the timer -->
-    <script src="countdown.js" defer></script>
+    <!-- 
+      This script handles the timer.
+      MODIFIED: It's now a "module" to load the Firebase-enabled countdown.js
+    -->
+    <script type="module" src="countdown.js" defer></script>
     
     <script>
         // This MUST be defined before submission.js is loaded
@@ -547,10 +549,8 @@
                 });
             };
 
-            const startButton = document.getElementById('start-button');
-            if (startButton) {
-                startButton.addEventListener('click', initAudio, { once: true });
-            }
+            // This page does *not* have the "Enter" button,
+            // so we initialize audio on the first click anywhere.
             document.body.addEventListener('click', initAudio, { once: true });
 
             const menuButton = document.getElementById('mobile-menu-button');
