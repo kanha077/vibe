@@ -338,6 +338,7 @@
 
                     </fieldset>
 
+                    <!-- Message area for success (now hidden) or errors -->
                     <div id="form-message" class="text-center text-lg p-3 rounded-lg hidden relative z-20"></div>
 
                     <div class="text-center">
@@ -372,6 +373,7 @@
         </div>
     </footer>
 
+    <!-- Rules Modal -->
     <div id="rules-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
         <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
             <div class="relative z-20 max-h-[80vh] flex flex-col">
@@ -404,6 +406,7 @@
         </div>
     </div>
 
+    <!-- Privacy Modal -->
     <div id="privacy-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
         <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
             <div class="relative z-20 max-h-[80vh] flex flex-col">
@@ -429,6 +432,7 @@
         </div>
     </div>
 
+    <!-- Terms Modal -->
     <div id="terms-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
         <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
             <div class="relative z-20 max-h-[80vh] flex flex-col">
@@ -458,6 +462,7 @@
         </div>
     </div>
 
+    <!-- Support Modal -->
     <div id="support-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
         <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
             <div class="relative z-20 max-h-[80vh] flex flex-col">
@@ -485,6 +490,38 @@
         </div>
     </div>
 
+    <!-- START: New Success Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-lg w-full text-left tech-container overflow-hidden">
+            <div class="relative z-20 max-h-[80vh] flex flex-col text-center">
+                <!-- Header -->
+                <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
+                    <h3 class="font-transformer text-2xl text-gray-900 w-full text-center ml-8">TRANSMISSION SUCCESSFUL</h3>
+                    <button class="modal-close-btn text-gray-400 hover:text-gray-900 transition-colors -mr-2">
+                        <i data-lucide="x" class="w-8 h-8"></i>
+                    </button>
+                </div>
+                <!-- Body -->
+                <div class="p-8 overflow-y-auto space-y-4 text-gray-700 flex flex-col items-center">
+                    <div class="p-4 bg-green-100 rounded-full inline-flex">
+                        <i data-lucide="check-circle" class="w-12 h-12 text-green-600"></i>
+                    </div>
+                    <p class="text-lg pt-2">Your project data has been received!</p>
+                    <p class="text-base text-gray-600">
+                        Well done, Operative. Your entry is now logged in the Vibe Coding matrix. You may now close this window.
+                    </p>
+                </div>
+                <!-- Footer -->
+                <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-center">
+                    <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
+                        CLOSE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: New Success Modal -->
+
     <!-- 
       This script handles the timer.
       MODIFIED: It's now a "module" to load the Firebase-enabled countdown.js
@@ -501,6 +538,26 @@
     
     <script>
         // This script handles all the UI logic for *this* page (modals, menu, etc.)
+        
+        // MOVED showModal and hideModal to global scope
+        // so they can be accessed by submission.js
+        const showModal = (modalId) => {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            }
+        };
+
+        const hideModal = (modalId) => {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
             
             let audioInitialized = false;
@@ -583,24 +640,9 @@
                 'terms-link': 'terms-modal',
                 'support-link': 'support-modal'
             };
-            const allModalIds = ['rules-modal', 'privacy-modal', 'terms-modal', 'support-modal'];
-
-            const showModal = (modalId) => {
-                const modal = document.getElementById(modalId);
-                if (modal) {
-                    modal.classList.remove('hidden');
-                    if (typeof lucide !== 'undefined') {
-                        lucide.createIcons();
-                    }
-                }
-            };
-
-            const hideModal = (modalId) => {
-                const modal = document.getElementById(modalId);
-                if (modal) {
-                    modal.classList.add('hidden');
-                }
-            };
+            
+            // ADDED 'success-modal' to the list
+            const allModalIds = ['rules-modal', 'privacy-modal', 'terms-modal', 'support-modal', 'success-modal'];
 
             for (const linkId in modalMap) {
                 const link = document.getElementById(linkId);
