@@ -35,12 +35,16 @@
             width: 100%;
             height: 100%;
             
-            /* Fixed broken image link with a placeholder */
-            background-image: url('DE.jpg'); 
-            background-size: cover;
-            background-position: center;
-            opacity: 0.05; 
-            animation: breathe-bg 8s infinite ease-in-out;
+            /* Replaced broken image link with a subtle, animated CSS pattern */
+            background-color: #f8f8f8;
+            background-image: linear-gradient(45deg, #e0e0e0 25%, transparent 25%), 
+                              linear-gradient(-45deg, #e0e0e0 25%, transparent 25%), 
+                              linear-gradient(45deg, transparent 75%, #e0e0e0 75%), 
+                              linear-gradient(-45deg, transparent 75%, #e0e0e0 75%);
+            background-size: 40px 40px; /* Made pattern larger */
+            
+            opacity: 0.1; /* Set a constant, subtle opacity */
+            animation: pan-bg 40s linear infinite; /* New panning animation */
             z-index: -1; 
         }
 
@@ -55,42 +59,19 @@
             }
         }
 
-
-        
-        #loader-overlay {
-            position: fixed;
-            inset: 0;
-            background-color: #ffffff; 
-            z-index: 100; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s ease-out;
-        }
-
-        #loader-image {
-            width: 200px; 
-            max-width: 90%;
-            height: auto;
-            animation: pulse-loader 2s infinite ease-in-out;
-        }
-
-        @keyframes pulse-loader {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 1;
+        /* New animation for the background pattern */
+        @keyframes pan-bg {
+            0% {
+                background-position: 0% 0%;
             }
-            50% {
-                transform: scale(1.1);
-                opacity: 0.8;
+            100% {
+                background-position: 400px 400px; /* Pan slowly */
             }
         }
 
+
         
-        #loader-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+        /* Removed loader-overlay styles */
 
         
         #welcome-overlay {
@@ -214,6 +195,11 @@
             transform: scale(0.98) translateY(0); 
         }
 
+        .btn-classic:disabled {
+            cursor: wait;
+            opacity: 0.7;
+        }
+
         
         .btn-lg {
             padding: 0.75rem 2rem; 
@@ -264,17 +250,22 @@
     
     <div id="animated-bg"></div>
 
-    <div id="loader-overlay">
-        <!-- Using placeholder for loader logo -->
-        <img id="loader-image" src="logo.png" alt="Loading Vibe Coding..." />
-    </div>
+    <!-- REMOVED loader-overlay div -->
     
     <div id="welcome-overlay">
         <div class="text-center p-8">
             <h2 class="font-transformer text-4xl sm:text-6xl font-extrabold text-gray-900">WELCOME, OPERATIVE</h2>
             <p class="text-xl sm:text-2xl text-gray-600 mt-4 font-inter subtitle-tech">The Vibe Coding Matrix is Live.</p>
-            <button id="enter-button" class="font-transformer btn-classic btn-lg btn-primary mt-12">
-                INITIATE
+            <!-- 
+                MODIFIED: 
+                1. Changed text to "INITIALIZE"
+                2. Added flex classes to align icon
+                3. Added Lucide arrow icon
+                4. Added mx-auto to ensure centering
+            -->
+            <button id="enter-button" class="font-transformer btn-classic btn-lg btn-primary mt-12 flex items-center justify-center mx-auto">
+                INITIALIZE
+                <i data-lucide="arrow-right" class="w-6 h-6 ml-3"></i>
             </button>
         </div>
     </div>
@@ -289,7 +280,7 @@
                     
                     <span class="font-transformer text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900">
                         <span class="text-gray-600 text-sm sm:text-base md:text-lg block sm:inline">Mozilla Phoenix</span>
-                        <span class="block sm:inline sm:ml-2">VIBE-CODING</span>
+                        <span class="block sm:inline sm:ml-2"></span>
                     </span>
                 </div>
                 
@@ -298,6 +289,12 @@
                         <li><a href="index.html" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md bg-gray-900 text-white font-bold transition-all duration-300">Home</a></li>
                         <li><a href="submission.html" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md text-gray-600 border border-transparent hover:bg-gray-100 hover:text-gray-900 transition-all duration-300">Submit</a></li>
                         <li><a id="rules-link-desktop" href="#" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md text-gray-600 border border-transparent hover:bg-gray-100 hover:text-gray-900 transition-all duration-300">Rules</a></li>
+                         <!-- 
+                            FIXED: 
+                            1. Changed id from "rules-link-desktop" to "organizer-link-desktop"
+                            2. Changed text from "organizer" to "Organizer"
+                        -->
+                        <li><a id="organizer-link-desktop" href="#" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md text-gray-600 border border-transparent hover:bg-gray-100 hover:text-gray-900 transition-all duration-300">Organizer</a></li>
                     </ul>
                 </nav>
                 
@@ -313,6 +310,8 @@
                     <li><a href="index.html" class="font-transformer tracking-wider text-lg py-3 px-6 rounded-md bg-gray-900 text-white font-bold">Home</a></li>
                     <li><a href="submission.html" class="font-transformer tracking-wider text-lg py-3 px-6 rounded-md text-gray-700 hover:bg-gray-100 w-full text-center">Submit</a></li>
                     <li><a id="rules-link-mobile" href="#" class="font-transformer tracking-wider text-lg py-3 px-6 rounded-md text-gray-700 hover:bg-gray-100 w-full text-center">Rules</a></li>
+                    <!-- FIXED: Added Organizer link to mobile menu -->
+                    <li><a id="organizer-link-mobile" href="#" class="font-transformer tracking-wider text-lg py-3 px-6 rounded-md text-gray-700 hover:bg-gray-100 w-full text-center">Organizer</a></li>
                 </ul>
             </div>
         </header>
@@ -507,7 +506,7 @@
                 </div>
                 <!-- END: Social Links -->
 
-                <p>&copy; Yash Vijay | Vibe Coding</p>
+                <p>&copy; Vibe Coding @MOZILLA</p>
                 
                 <div class="mt-3 flex flex-col sm:flex-row justify-center items-center space-y-1 sm:space-y-0 sm:space-x-4">
                     <a href="#" id="tools-link" class="hover:text-gray-900 transition-colors">Tools</a>
@@ -606,10 +605,9 @@
                     <p>This event is brought to you by a collaboration between the <strong class="text-gray-900">Mozilla Club</strong> and the <strong class="text-gray-900">Phoenix Club</strong> at Vibe Coding College.</p>
                     <h4 class="font-transformer text-lg text-gray-900 pt-2">Core Team</h4>
                     <ul class="list-disc list-inside space-y-2">
-                        <li><strong>Yash Vijay:</strong> YES MAI HU YASH</li>
-                        <li><strong>[Member Name]:</strong> BATAO</li>
-                        <li><strong>[Member Name]:</strong> HEHEHEH</li>
-                        <li><strong>[Member Name]:</strong> @MOZIALLA</li>
+                        <li><strong>Join Secratory:</strong>YASH SINGHAL</li>
+                        <li><strong>Join Secratory:</strong> Vardhman jain</li>
+                        <li><strong>Devloper: </strong>Yash Vijayvargiya</li>
                     </ul>
                 </div>
                 <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
@@ -635,28 +633,12 @@
                     <p>All participants who successfully transmit a project will receive an exclusive "Vibe Coding: Transform" digital badge and certificate of participation.</p>
                     
                     <div class="space-y-2">
-                        <h4 class="font-transformer text-lg text-gray-900 pt-2">1st Place: Codeimus Prime</h4>
+                        <h4 class="font-transformer text-lg text-gray-900 pt-2">EXCITING CASH PRIZES</h4>
                         <ul class="list-disc list-inside ml-4">
-                            <li>BHULJAAO</li>
-                            <li>KUCH NAHI</li>
-                            <li>KYA MATLAB CHAHIYE HI</li>
+                            <li>AMOUNT IS UNDISCLOSED</li>
                         </ul>
                     </div>
                     
-                    <div class="space-y-2">
-                        <h4 class="font-transformer text-lg text-gray-900 pt-2">2nd Place: Cyber-Coder</h4>
-                        <ul class="list-disc list-inside ml-4">
-                            <li>MOUSE</li>
-                            <li>KEYBOARD</li>
-                        </ul>
-                    </div>
-
-                    <div class="space-y-2">
-                        <h4 class="font-transformer text-lg text-gray-900 pt-2">3rd Place: Tech-Spark</h4>
-                        <ul class="list-disc list-inside ml-4">
-                            <li>FREE KA DOMAIN</li>
-                        </ul>
-                    </div>
 
                 </div>
                 <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
@@ -697,13 +679,12 @@
             <div class="relative z-20 max-h-[80vh] flex flex-col">
                 <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
                     <h3 class="font-transformer text-2xl text-gray-900">Phoenix Club</h3>
-                    <button class="modal-close-btn text-gray-400 hover:text-gray-900 transition-colors">
-                        <i data-lucide="x" class="w-8 h-8"></i>
+                    <button class="modal-close-btn text-gray-40string" class="w-8 h-8"></i>
                     </button>
                 </div>
                 <div class="p-8 overflow-y-auto space-y-4 text-gray-700">
                     <p>More details about the Phoenix Club here!</p>
-                     <p>Rising from the ashes of old ideas, the Phoenix Club is the hub for innovation and creativity on campus. We explore new technologies, from AI to web3, and empower students to build the future.</p>
+                        <p>Rising from the ashes of old ideas, the Phoenix Club is the hub for innovation and creativity on campus. We explore new technologies, from AI to web3, and empower students to build the future.</p>
                 </div>
                 <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
                     <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
@@ -785,7 +766,7 @@
             // but we must wait for the countdown.js to be loaded.
             // A simple way is to just init audio on the main "ENTER" button.
             
-            const loader = document.getElementById('loader-overlay');
+            // const loader = document.getElementById('loader-overlay'); // Removed
             const welcomeOverlay = document.getElementById('welcome-overlay');
             const enterButton = document.getElementById('enter-button');
             const mainContent = document.getElementById('main-content');
@@ -795,18 +776,12 @@
                 bgAudio.volume = 0.1;
             }
 
-            window.addEventListener('load', () => {
-                if (loader) {
-                    loader.classList.add('hidden');
-                    setTimeout(() => {
-                        if (loader.style) {
-                            loader.style.display = 'none';
-                        }
-                    }, 500); 
-                }
-            });
+            /* REMOVED window.addEventListener('load', ...) for the loader */
 
             if (enterButton && welcomeOverlay && mainContent) {
+                
+                // MODIFIED: Reverted to click-based logic as requested
+                
                 enterButton.addEventListener('click', async () => {
                     
                     await initAudio(); // This will initialize audio for all buttons
@@ -825,6 +800,15 @@
                         }
                     }, 500);
                 }, { once: true });
+                
+
+                // MODIFIED: Removed the automatic initiation logic
+                /*
+                // New automatic initiation logic
+                setTimeout(() => {
+                    // ... automatic logic removed ...
+                }, 3000); 
+                */
             }
             
             
@@ -851,13 +835,17 @@
 
             
             if (typeof lucide !== 'undefined') {
+                // This call will render all icons on load, including the new arrow
                 lucide.createIcons();
             }
 
-        
+    
+            // FIXED: Added 'organizer-link-desktop' and 'organizer-link-mobile' to the map
             const modalMap = {
                 'rules-link-desktop': 'rules-modal',
                 'rules-link-mobile': 'rules-modal',
+                'organizer-link-desktop': 'organizers-modal',
+                'organizer-link-mobile': 'organizers-modal',
                 'tools-link': 'tools-modal',
                 'organizers-link': 'organizers-modal',
                 'prizes-link': 'prizes-modal',
@@ -898,7 +886,8 @@
                     link.addEventListener('click', (e) => {
                         e.preventDefault(); 
                         
-                        if (linkId === 'rules-link-mobile' && mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        // Check if it's a mobile link being clicked to close the menu
+                        if ((linkId === 'rules-link-mobile' || linkId === 'organizer-link-mobile') && mobileMenu && !mobileMenu.classList.contains('hidden')) {
                              mobileMenu.classList.add('hidden');
                              menuIcon.setAttribute('data-lucide', 'menu');
                              if (typeof lucide !== 'undefined') {

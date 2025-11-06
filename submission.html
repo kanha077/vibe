@@ -37,12 +37,18 @@
             width: 100%;
             height: 100%;
             /* Fixed broken image link */
-            background-image: url('FROST.jpg'); 
+            background-image: url('https://placehold.co/1920x1080/f0f4f8/f0f4f8?text='); 
             background-size: cover;
             background-position: center;
             opacity: 0.05;
             animation: breathe-bg 8s infinite ease-in-out;
             z-index: -1;
+        }
+        
+        /* Added error handler for main BG */
+        #animated-bg[data-broken="true"] {
+            background-image: none;
+            background-color: #f8f9fa;
         }
 
         @keyframes breathe-bg {
@@ -104,7 +110,19 @@
              outline: none;
              box-shadow: 0 0 0 2px rgba(10, 10, 26, 0.1);
        }
-        
+       
+       /* Added disabled state styling */
+       input:disabled, textarea:disabled, button:disabled {
+            background-color: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+            opacity: 0.7;
+       }
+       
+       button:disabled {
+           opacity: 0.5;
+       }
+
         input[type="text"]::placeholder, input[type="url"]::placeholder, textarea::placeholder {
             color: #6b7280;
         }
@@ -135,11 +153,11 @@
             transform: scale(1);
             display: inline-block;
         }
-        .btn-classic:hover {
+        .btn-classic:not(:disabled):hover {
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
             transform: scale(1.03) translateY(-2px);
         }
-        .btn-classic:active {
+        .btn-classic:not(:disabled):active {
             transform: scale(0.98) translateY(0);
         }
 
@@ -157,7 +175,7 @@
             background-color: #0a0a1a;
             color: #ffffff;
         }
-        .btn-primary:hover {
+        .btn-primary:not(:disabled):hover {
             background-color: #333333;
         }
 
@@ -166,7 +184,7 @@
             color: #ffffff;
             box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2);
         }
-        .btn-deploy:hover {
+        .btn-deploy:not(:disabled):hover {
             background-color: #d97706;
             box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3);
         }
@@ -175,7 +193,12 @@
 </head>
 <body class="text-gray-900 min-h-screen flex flex-col">
 
-    <div id="animated-bg"></div>
+    <!-- Set data-broken attribute on error, using a placeholder -->
+    <div id="animated-bg" 
+         style="background-image: url('FROST.jpg');"
+         onerror="this.style.backgroundImage = 'url(https://placehold.co/1920x1080/f0f4f8/f0f4f8?text=)'; this.setAttribute('data-broken', 'true');">
+    </div>
+
 
     <!-- Header -->
     <header class="w-full bg-white/90 border-b border-gray-200/50 shadow-sm py-4 relative z-20 backdrop-blur-sm">
@@ -291,10 +314,10 @@
                     <fieldset class="space-y-4">
                         <h3 class="text-lg font-semibold font-transformer text-gray-700">OPERATIVE PROFILES (ID)</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input type="text" name="member1" class="w-full p-2.5" placeholder="ENROLLMENT NUMBER  (Required)" required>
-                            <input type="text" name="member2" class="w-full p-2.5" placeholder="ENROLLMENT NUMBER  (required)" required>
-                            <input type="text" name="member3" class="w-full p-2.5" placeholder="ENROLLMENT NUMBER  (Optional)">
-                            <input type="text" name="member4" class="w-full p-2.5" placeholder="ENROLLMENT NUMBER  (Optional)">
+                            <input type="text" name="member1" class="w-full p-2.5" placeholder="ENROLLMENT NUMBER  (Required)" required>
+                            <input type="text" name="member2" classs="w-full p-2.5" placeholder="ENROLLMENT NUMBER  (required)" required>
+                            <input type="text" name="member3" class="w-full p-2.5" placeholder="ENROLLMENT NUMBER  (Optional)">
+                            <input type="text" name="member4" class="w-full p-2.5" placeholder="ENROLLMENT NUMBER  (Optional)">
                         </div>
                     </fieldset>
 
@@ -339,10 +362,10 @@
                     </fieldset>
 
                     <!-- Message area for success (now hidden) or errors -->
-                    <div id="form-message" class="text-center text-lg p-3 rounded-lg hidden relative z-20"></div>
+                    <div id="form-message" class="text-center text-base p-3 rounded-lg hidden relative z-20"></div>
 
                     <div class="text-center">
-                        <button id="submit-button" type="submit" class="w-full md:w-1/2 font-transformer btn-classic btn-lg btn-primary flex items-center justify-center mx-auto disabled:opacity-50 disabled:cursor-wait">
+                        <button id="submit-button" type="submit" class="w-full md:w-1/2 font-transformer btn-classic btn-lg btn-primary flex items-center justify-center mx-auto">
                             <span id="submit-text">TRANSMIT PROJECT DATA</span>
                             <span id="submit-spinner" class="spinner ml-2 hidden"></span>
                         </button>
@@ -681,6 +704,75 @@
                     });
                 }
             });
+
+            // --- NEW LOGIC TO DISABLE FORM WHEN TIMER ENDS ---
+            const submissionPortal = document.getElementById('submission-portal');
+            const timerEndedDisplay = document.getElementById('timer-ended');
+            const submitButton = document.getElementById('submit-button');
+            const submitText = document.getElementById('submit-text');
+            const formMessage = document.getElementById('form-message');
+
+            const disableSubmissionForm = () => {
+                if (!submissionPortal || !submitButton || !submitText || !formMessage) {
+                    console.warn("Could not find all required elements to disable submission form.");
+                    return;
+                }
+
+                // 1. Disable all form inputs
+                const formInputs = submissionPortal.querySelectorAll('input, textarea, button');
+                formInputs.forEach(input => {
+                    input.disabled = true;
+                });
+
+                // 2. Update submit button text and state
+                submitText.textContent = 'SUBMISSIONS CLOSED';
+                submitButton.disabled = true;
+                // Tailwind's disabled:opacity-50 and disabled:cursor-wait should be handled by the form,
+                // but we add it explicitly just in case.
+                submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+
+                // 3. Show a clear message above the button
+                formMessage.textContent = 'The 48-hour submission window has closed. Submissions are no longer accepted.';
+                formMessage.classList.remove('hidden');
+                // Add error styling
+                formMessage.classList.add('bg-red-100', 'border', 'border-red-300', 'text-red-700');
+                // Remove success styling (if it was ever there)
+                formMessage.classList.remove('bg-green-100', 'border', 'border-green-300', 'text-green-700');
+                
+                // 4. Scroll to the message so the user sees it
+                formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            };
+
+            // We need to check if the timer is *already* ended when the page loads
+            // The 'hidden' class is what countdown.js seems to control
+            if (timerEndedDisplay && !timerEndedDisplay.classList.contains('hidden')) {
+                disableSubmissionForm();
+            }
+
+            // We also need to *watch* for the timer ending while the user is on the page
+            if (timerEndedDisplay) {
+                const observer = new MutationObserver((mutationsList) => {
+                    for (const mutation of mutationsList) {
+                        // We watch for changes to 'class' or 'style' attributes
+                        if (mutation.type === 'attributes' && (mutation.attributeName === 'class' || mutation.attributeName === 'style')) {
+                            // Check if the element is now visible
+                            const isHidden = timerEndedDisplay.classList.contains('hidden') || timerEndedDisplay.style.display === 'none';
+                            if (!isHidden) {
+                                // Timer has just ended
+                                disableSubmissionForm();
+                                observer.disconnect(); // No need to observe anymore
+                            }
+                        }
+                    }
+                });
+
+                // Start observing the #timer-ended element for attribute changes
+                observer.observe(timerEndedDisplay, {
+                    attributes: true // We care about 'class' or 'style' changes
+                });
+            }
+            // --- END NEW LOGIC ---
+
 
             // Logic for the submission form toggle
             const toggle = document.getElementById('toggle-submission-type');
