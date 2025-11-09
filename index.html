@@ -269,7 +269,7 @@
                   <img src="logo1.jpg" alt="College Logo" class="mr-3 border border-gray-300 p-0.5 logo-original" onerror="this.src='https://placehold.co/40x40/0a0a1a/ffffff?text=VC'">
                     
                     <span class="font-transformer text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900">
-                        <span class="text-gray-600 text-sm sm:text-base md:text-lg block sm:inline">Mozilla Phoenix</span>
+                        <span class="text-gray-600 text-sm sm:text-base md:text-lg block sm:inline"></span>
                         <span class="block sm:inline sm:ml-2"></span>
                     </span>
                 </div>
@@ -444,21 +444,11 @@
                             </h2>
                             
                             <div class="p-6 rounded-lg border border-gray-200/50 shadow-lg transition-all duration-300 hover:shadow-xl bg-white/70 backdrop-blur-lg">
-                                <h3 class="font-transformer text-xl font-bold text-gray-900">MOZILLA CLUB</h3>
+                                <h3 class="font-transformer text-xl font-bold text-gray-900">MOZILLA PHOENIX CLUB</h3>
                                 <p class="text-gray-700 mt-2 mb-4">
-                                    Part of the global Mozilla community, our club champions an open, accessible, and inclusive internet. We build, advocate, and educate to keep the web a public resource for all.
+                                    Part of the global Mozilla community, our club champions an open, accessible, and inclusive internet. Combining that heritage with the Phoenix spirit of innovation, we explore new technologies from AI to web3 and empower students to build the future. We build, advocate, educate, and create a hub for creativity on campus.
                                 </p>
                                 <a href="#" id="mozilla-link" class="font-transformer text-sm font-bold text-gray-900 hover:text-amber-600 transition-colors group">
-                                    Learn More <i data-lucide="arrow-right" class="w-4 h-4 inline-block -mt-0.5 transition-transform duration-300 group-hover:translate-x-1"></i>
-                                </a>
-                            </div>
-                            
-                            <div class="p-6 rounded-lg border border-gray-200/50 shadow-lg transition-all duration-300 hover:shadow-xl bg-white/70 backdrop-blur-lg">
-                                <h3 class="font-transformer text-xl font-bold text-gray-900">PHOENIX CLUB</h3>
-                                <p class="text-gray-700 mt-2 mb-4">
-                                    Rising from the ashes of old ideas, the Phoenix Club is the hub for innovation and creativity on campus. We explore new technologies, from AI to web3, and empower students to build the future.
-                                </p>
-                                <a href="#" id="phoenix-link" class="font-transformer text-sm font-bold text-gray-900 hover:text-amber-600 transition-colors group">
                                     Learn More <i data-lucide="arrow-right" class="w-4 h-4 inline-block -mt-0.5 transition-transform duration-300 group-hover:translate-x-1"></i>
                                 </a>
                             </div>
@@ -632,41 +622,20 @@
         </div>
     </div>
 
-    <div id="mozilla-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
+    <!-- Consolidated modal for Mozilla Phoenix Club (merged Mozilla + Phoenix) -->
+    <div id="mozilla-phoenix-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
         <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
             <div class="relative z-20 max-h-[80vh] flex flex-col">
                 <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
-                    <h3 class="font-transformer text-2xl text-gray-900">Mozilla Club</h3>
+                    <h3 class="font-transformer text-2xl text-gray-900">Mozilla Phoenix Club</h3>
                     <button class="modal-close-btn text-gray-400 hover:text-gray-900 transition-colors">
                         <i data-lucide="x" class="w-8 h-8"></i>
                     </button>
                 </div>
                 <div class="p-8 overflow-y-auto space-y-4 text-gray-700">
-                    <p>More details about the Mozilla Club here!</p>
+                    <p>More details about the Mozilla Phoenix Club here!</p>
                     <p>Part of the global Mozilla community, our club champions an open, accessible, and inclusive internet. We build, advocate, and educate to keep the web a public resource for all.</p>
-                </div>
-                
-                <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
-                    <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div id="phoenix-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
-        <div class="bg-white/90 backdrop-blur-lg border border-gray-200/50 rounded-lg max-w-3xl w-full text-left tech-container overflow-hidden">
-            <div class="relative z-20 max-h-[80vh] flex flex-col">
-                <div class="flex justify-between items-center p-6 border-b border-gray-200/50">
-                    <h3 class="font-transformer text-2xl text-gray-900">Phoenix Club</h3>
-                    <button class="modal-close-btn text-gray-40string" class="w-8 h-8"></i>
-                    </button>
-                </div>
-                <div class="p-8 overflow-y-auto space-y-4 text-gray-700">
-                    <p>More details about the Phoenix Club here!</p>
-                        <p>Rising from the ashes of old ideas, the Phoenix Club is the hub for innovation and creativity on campus. We explore new technologies, from AI to web3, and empower students to build the future.</p>
+                    <p>Rising from the ashes of old ideas, the Phoenix Club identity drives innovation and creativity on campus — exploring new technologies from AI to web3 and empowering students to build the future.</p>
                 </div>
                 <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
                     <button class="modal-close-btn font-transformer btn-classic btn-sm btn-primary">
@@ -825,26 +794,29 @@
                 'tools-link': 'tools-modal',
                 'organizers-link': 'organizers-modal',
                 'prizes-link': 'prizes-modal',
-                'mozilla-link': 'mozilla-modal', 
-                'phoenix-link': 'phoenix-modal'  
+                    'mozilla-link': 'mozilla-phoenix-modal', 
+                    'phoenix-link': 'mozilla-phoenix-modal'  
             };
 
             const allModalIds = [
-                'rules-modal', 
-                'tools-modal', 
-                'organizers-modal', 
-                'prizes-modal', 
-                'mozilla-modal', 
-                'phoenix-modal'  
+                    'rules-modal', 
+                    'tools-modal', 
+                    'organizers-modal', 
+                    'prizes-modal', 
+                    'mozilla-phoenix-modal'  
             ];
 
             const showModal = (modalId) => {
+                console.log('[modal] showModal called for:', modalId);
                 const modal = document.getElementById(modalId);
                 if (modal) {
                     modal.classList.remove('hidden');
+                    modal.setAttribute('aria-hidden', 'false');
                     if (typeof lucide !== 'undefined') {
                         lucide.createIcons();
                     }
+                } else {
+                    console.warn('[modal] no element found with id', modalId);
                 }
             };
 
@@ -893,6 +865,14 @@
                     });
                 }
             });
+            // Helper for debugging: call this from the browser console to open the consolidated modal
+            window.testOpenModal = () => {
+                try {
+                    showModal('mozilla-phoenix-modal');
+                } catch (e) {
+                    console.error('testOpenModal failed', e);
+                }
+            };
     
             let currentSlide = 0;
             const slides = document.querySelectorAll('.gif-slide');
