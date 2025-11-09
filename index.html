@@ -241,6 +241,14 @@
             display: inline-flex;
         }
 
+        /* Keep header logo at its intrinsic size, but limit max-height so it doesn't break the header layout */
+        .logo-original {
+            width: auto; /* use intrinsic width */
+            height: auto; /* use intrinsic height */
+            display: block;
+            max-height: 64px; /* safe cap for header - change or remove to allow full native size */
+        }
+
     </style>
 </head>
 
@@ -258,7 +266,7 @@
                 
                 <div class="flex items-center">
                     <!-- Using placeholder for header logo -->
-                  <img src="logo1.jpg" alt="College Logo" class="h-10 w-10 mr-3 border border-gray-300 p-0.5" onerror="this.src='https://placehold.co/40x40/0a0a1a/ffffff?text=VC'">
+                  <img src="logo1.jpg" alt="College Logo" class="mr-3 border border-gray-300 p-0.5 logo-original" onerror="this.src='https://placehold.co/40x40/0a0a1a/ffffff?text=VC'">
                     
                     <span class="font-transformer text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900">
                         <span class="text-gray-600 text-sm sm:text-base md:text-lg block sm:inline">Mozilla Phoenix</span>
@@ -396,7 +404,7 @@
                                 WHY PLUG IN?
                             </h2>
                             <p class="text-lg text-gray-700">
-                                This isn't just another hackathon. It's a 48-hour sprint to build, learn, and showcase your skills. Here’s the data packet on why you should deploy.
+                                This isn't just another hackathon. It's a 10-hour sprint to build, learn, and showcase your skills. Here’s the data packet on why you should deploy.
                             </p>
                             <ul class="space-y-6">
                                 <li class="flex items-start space-x-4">
@@ -490,7 +498,7 @@
                     <a href="#" id="prizes-link" class="hover:text-gray-900 transition-colors">Prizes</a>
                 </div>
                 <p class="mt-4 text-xs text-gray-500 font-transformer tracking-wider">
-                    Mozilla Phoenix - Activating Creative Protocols.
+                    Mozilla Phoenix Club - Activating Creative Protocols.
                 </p>
             </div>
         </footer>
@@ -509,7 +517,7 @@
                 <div class="p-8 overflow-y-auto space-y-6">
                     <div class="space-y-2">
                         <h4 class="font-transformer text-lg text-gray-900">1. Event Duration</h4>
-                        <p class="text-gray-700 text-base">The Vibe Coding contest is a 48-hour event. The timer starts for you individually as soon as you click the "Deploy Countdown" button. This action is final and cannot be reversed.</p>
+                        <p class="text-gray-700 text-base">The Vibe Coding contest is a 10-hour event. </p>
                     </div>
                     <div class="space-y-2">
                         <h4 class="font-transformer text-lg text-gray-900">2. Submission</h4>
@@ -518,11 +526,11 @@
                     </div>
                     <div class="space-y-2">
                         <h4 class="font-transformer text-lg text-gray-900">3. Theme</h4>
-                        <p class="text-gray-700 text-base">The theme of the contest is **"Transform"**. Your project must interpret this theme. This could relate to data transformation, UI transformation, a personal transformation story, or the literal Transformers franchise. Be creative!</p>
+                        <p class="text-gray-700 text-base">The theme of the contest is frontend and ui/ux desgin creativity. </p>
                     </div>
                     <div class="space-y-2">
                         <h4 class="font-transformer text-lg text-gray-900">4. Originality & AI</h4>
-                        <p class="text-gray-700 text-base">Your project must be your own original work, created within the 48-hour window. You are permitted to use AI tools (like Gemini, GitHub Copilot, etc.) to *assist* you, but your core concept, logic, and implementation must be your own. You must disclose the use of AI tools in your project's `README.md` file.</p>
+                        <p class="text-gray-700 text-base">Your project must be your own original work, created within the 10-hour window. You are permitted to use AI tools (like Gemini, GitHub Copilot, etc.) to *assist* you, but your core concept, logic, and implementation must be your own. You must disclose the use of AI tools in your project's `README.md` file.</p>
                     </div>
                     <div class="space-y-2">
                         <h4 class="font-transformer text-lg text-gray-900">5. Code of Conduct</h4>
@@ -576,11 +584,11 @@
                     </button>
                 </div>
                 <div class="p-8 overflow-y-auto space-y-4 text-gray-700">
-                    <p>This event is brought to you by a collaboration between the <strong class="text-gray-900">Mozilla Club</strong> and the <strong class="text-gray-900">Phoenix Club</strong> at Vibe Coding College.</p>
+                    <p>This event is brought to you by a collaboration between the <strong class="text-gray-900">Mozilla Phoenix Club</strong>at Vibe Coding College.</p>
                     <h4 class="font-transformer text-lg text-gray-900 pt-2">Core Team</h4>
                     <ul class="list-disc list-inside space-y-2">
-                        <li><strong>Joint Secratory:</strong>YASH SINGHAL</li>
-                        <li><strong>Joint Secratory:</strong> Vardhman jain</li>
+                        <li><strong> Secratory:</strong>YASH SINGHAL</li>
+                        <li><strong>Joint Secratory:</strong> VARDHMAN JAIN</li>
                         <li><strong>Devloper: </strong>Yash Vijayvargiya</li>
                     </ul>
                 </div>
@@ -604,7 +612,7 @@
                     </button>
                 </div>
                 <div class="p-8 overflow-y-auto space-y-4 text-gray-700">
-                    <p>All participants who successfully transmit a project will receive an exclusive "Vibe Coding: Transform" digital badge and certificate of participation.</p>
+                    <p>Winner team who successfully transmit a project will receive cash prize.</p>
                     
                     <div class="space-y-2">
                         <h4 class="font-transformer text-lg text-gray-900 pt-2">EXCITING CASH PRIZES</h4>

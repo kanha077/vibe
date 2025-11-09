@@ -189,6 +189,14 @@
             box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3);
         }
 
+        /* Keep header logo at its intrinsic size, with a safe max-height */
+        .logo-original {
+            width: auto;
+            height: auto;
+            display: block;
+            max-height: 64px; /* adjust or remove to allow full native size */
+        }
+
     </style>
 </head>
 <body class="text-gray-900 min-h-screen flex flex-col">
@@ -204,10 +212,12 @@
     <header class="w-full bg-white/90 border-b border-gray-200/50 shadow-sm py-4 relative z-20 backdrop-blur-sm">
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
             <div class="flex items-center">
-                <!-- Fixed broken logo image -->
-                <img src="logo.png" alt="College Logo" class="h-10 w-10 mr-3 rounded-full border border-gray-300 p-0.5" onerror="this.src='https://placehold.co/40x40/0a0a1a/ffffff?text=VC'">
+                    <!-- Logo (links to home) - use intrinsic size class logo-original -->
+                    <a href="index.html" aria-label="Home">
+                        <img src="logo1.jpg" alt="College Logo" class="mr-3 rounded-full border border-gray-300 p-0.5 logo-original" onerror="this.src='https://placehold.co/40x40/0a0a1a/ffffff?text=VC'">
+                    </a>
                 <span class="font-transformer text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900">
-                    <span class="text-gray-600 text-sm sm:text-base md:text-lg block sm:inline">Mozilla X Phoenix</span>
+                    <span class="text-gray-600 text-sm sm:text-base md:text-lg block sm:inline">Mozilla Phoenix</span>
                     <span class="block sm:inline sm:ml-2">VIBE-CODING</span>
                 </span>
             </div>
@@ -244,8 +254,8 @@
             <!-- Start Button -->
             <!-- This is hidden by default here, countdown.js will unhide if needed -->
             <div id="start-button-container" class="relative z-20 hidden">
-                <h2 class="text-2xl font-bold font-transformer text-yellow-600 mb-4">TIMER NOT ACTIVE</h2>
-                <p class="text-gray-700 mb-6">Please go to the Home page to activate the 48-hour submission window.</p>
+                <h2 class="text-2xl font-bold font-transformer text-yellow-600 mb-4">TIMER START NOW</h2>
+                <p class="text-gray-700 mb-6">The submission window is open for 10-hour.</p>
                 <a href="index.html" class="font-transformer btn-classic btn-lg btn-primary"> 
                     GO TO HOME
                 </a>
@@ -279,7 +289,7 @@
             <!-- Timer Ended -->
             <div id="timer-ended" class="relative z-20 hidden p-6 rounded-lg bg-red-100 border border-red-300">
                  <h2 class="text-3xl font-bold font-transformer text-red-700 tracking-wider">TRANSMISSION OVERRIDE</h2>
-                 <p class="text-lg text-red-800 mt-2">The 48-hour submission window has closed. Data streams are terminated.</p>
+                 <p class="text-lg text-red-800 mt-2">The  submission window has closed today at 11:00 PM.</p>
             </div>
         </section>
 
@@ -333,7 +343,7 @@
                         <!-- GitHub / Video Links -->
                         <div id="repo-video-links" class="space-y-4">
                             <div id="githubLink-group">
-                                <label for="githubLink" class="block text-sm font-medium text-gray-700 mb-2">GitHub Repository (Source Code Access)</label>
+                                <label for="githubLink" class="block text-sm font-medium text-gray-700 mb-2">GitHub Repository (Source Code Access if available)</label>
                                 <div class="relative">
                                     <i data-lucide="github" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500"></i>
                                     <input type="url" id="githubLink" name="githubLink" class="pl-10 w-full p-2.5" placeholder="https://github.com/..." required>
@@ -381,7 +391,7 @@
     
     <footer class="w-full bg-white/80 backdrop-blur-sm border-t border-gray-200/50 py-8 relative z-10">
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
-            <p>&copy; Yash Vijay | Vibe Coding</p>
+            <p>&copy; Mozilla | Vibe Coding</p>
             
             <div class="mt-3 flex flex-col sm:flex-row justify-center items-center space-y-1 sm:space-y-0 sm:space-x-4">
                 <a href="#" id="privacy-link" class="hover:text-gray-900 transition-colors">Privacy Policy</a>
@@ -391,7 +401,7 @@
                 <a href="#" id="support-link" class="hover:text-gray-900 transition-colors">Support Matrix</a>
             </div>
             <p class="mt-4 text-xs text-gray-500 font-transformer tracking-wider">
-                Phoenix x Mozilla - Activating Creative Protocols.
+                Mozilla Phoenix Club - Activating Creative Protocols.
             </p>
         </div>
     </footer>
@@ -409,15 +419,15 @@
                 <div class="p-8 overflow-y-auto space-y-6">
                     <div class="space-y-2">
                         <h4 class="font-transformer text-lg text-gray-900">1. Event Duration</h4>
-                        <p class="text-gray-700 text-base">The Vibe Coding contest is a 48-hour event. The timer starts for you individually as soon as you click the "Deploy Countdown" button. This action is final and cannot be reversed.</p>
+                        <p class="text-gray-700 text-base">The Vibe Coding contest is a 10-hour event.Deploy your project within this timeframe to participate.</p>
                     </div>
                     <div class="space-y-2">
                         <h4 class="font-transformer text-lg text-gray-900">2. Submission</h4>
-                        <p class="text-gray-700 text-base">All project files must be submitted via the "Submission Portal" *before* your personal 48-hour timer expires. Late submissions will be automatically rejected by the system.</p>
+                        <p class="text-gray-700 text-base">All project files must be submitted via the "Submission Portal" *before* 10-hour timer expires. Late submissions will be automatically rejected by the system.</p>
                     </div>
                     <div class="space-y-2">
-                        <h4 class="font-transformer text-lg text-gray-900">3. Theme</h4>
-                        <p class="text-gray-700 text-base">The theme of the contest is **"Transform"**. Your project must interpret this theme. Be creative!</p>
+                        <h4 class="font-transformer text-lg text-gray-900">3.Judging Criteria</h4>
+                        <p class="text-gray-700 text-base"> Based on frontend and ui/ux desgin . Be creative!</p>
                     </div>
                 </div>
                 <div class="p-6 bg-gray-50/50 border-t border-gray-200/50 text-right">
@@ -468,9 +478,9 @@
                 <div class="p-8 overflow-y-auto space-y-4 text-gray-700">
                     <p>By participating in the Vibe Coding event, you agree to these terms.</p>
                     <h4 class="font-transformer text-lg text-gray-900 pt-2">1. Eligibility</h4>
-                    <p>This event is open to all students of Vibe Coding College. Teams can consist of 1 to 4 members.</p>
+                    <p>This event is open to all students of Vibe Coding College. Teams can consist of 2 to 4 members.</p>
                     <h4 class="font-transformer text-lg text-gray-900 pt-2">2. Submissions</h4>
-                    <p>All submissions must be original work created during the 48-hour event window. Pre-existing projects are not allowed. The use of open-source libraries and frameworks is permitted. Use of AI tools must be disclosed.</p>
+                    <p>All submissions must be original work created during the 10-hour event window.  The use of open-source libraries and frameworks is permitted. </p>
                     <h4 class="font-transformer text-lg text-gray-900 pt-2">3. Code of Conduct</h4>
                     <p>All participants must adhere to a spirit of respectful collaboration. Any form of harassment, discrimination, or plagiarism will result in immediate disqualification.</p>
                     <h4 class="font-transformer text-lg text-gray-900 pt-2">4. Judging</h4>
@@ -498,9 +508,8 @@
                 <div class="p-8 overflow-y-auto space-y-4 text-gray-700">
                     <p>If you encounter a critical system error or require assistance, please use the following channels:</p>
                     <ul class="list-disc list-inside space-y-2">
-                        <li><strong>Technical Support (Discord):</strong> Join the `#vibe-coding-support` channel for real-time help from mentors.</li>
-                        <li><strong>Submission Form Issues:</strong> Contact an admin directly on Discord (e.g., @AdminName).</li>
-                        <li><strong>General Questions:</strong> Use the `#vibe-coding-general` channel.</li>
+                        <li><strong>Technical Support (gmail):</strong> 231b422@juetgmail.in || 231b405@juetgmail.in</li>
+
                     </ul>
                     <p class="pt-4">Please do not wait until the last minute to report a submission issue. We are here to help!</p>
                 </div>
