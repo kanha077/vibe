@@ -6,7 +6,7 @@
     <title>Vibe Coding - Contest by Mozilla X Phoenix</title>
     
     <!-- Using a placeholder for the logo -->
-    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="icon" href="logo1.jpg" type="image/png">
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -252,31 +252,13 @@
 
     <!-- REMOVED loader-overlay div -->
     
-    <div id="welcome-overlay">
-        <div class="text-center p-8">
-            <h2 class="font-transformer text-4xl sm:text-6xl font-extrabold text-gray-900">WELCOME, OPERATIVE</h2>
-            <p class="text-xl sm:text-2xl text-gray-600 mt-4 font-inter subtitle-tech">The Vibe Coding Matrix is Live.</p>
-            <!-- 
-                MODIFIED: 
-                1. Changed text to "INITIALIZE"
-                2. Added flex classes to align icon
-                3. Added Lucide arrow icon
-                4. Added mx-auto to ensure centering
-            -->
-            <button id="enter-button" class="font-transformer btn-classic btn-lg btn-primary mt-12 flex items-center justify-center mx-auto">
-                INITIALIZE
-                <i data-lucide="arrow-right" class="w-6 h-6 ml-3"></i>
-            </button>
-        </div>
-    </div>
-    
-    <div id="main-content" class="hidden">
+ 
         <header class="w-full bg-white/90 border-b border-gray-200 shadow-sm py-4 relative z-20 backdrop-blur-sm">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
                 
                 <div class="flex items-center">
                     <!-- Using placeholder for header logo -->
-                    <img src="logo.png" alt="College Logo" class="h-10 w-10 mr-3 rounded-full border border-gray-300 p-0.5" onerror="this.src='https://placehold.co/40x40/0a0a1a/ffffff?text=VC'">
+                  <img src="logo1.jpg" alt="College Logo" class="h-10 w-10 mr-3 border border-gray-300 p-0.5" onerror="this.src='https://placehold.co/40x40/0a0a1a/ffffff?text=VC'">
                     
                     <span class="font-transformer text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900">
                         <span class="text-gray-600 text-sm sm:text-base md:text-lg block sm:inline">Mozilla Phoenix</span>
@@ -289,11 +271,6 @@
                         <li><a href="index.html" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md bg-gray-900 text-white font-bold transition-all duration-300">Home</a></li>
                         <li><a href="submission.html" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md text-gray-600 border border-transparent hover:bg-gray-100 hover:text-gray-900 transition-all duration-300">Submit</a></li>
                         <li><a id="rules-link-desktop" href="#" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md text-gray-600 border border-transparent hover:bg-gray-100 hover:text-gray-900 transition-all duration-300">Rules</a></li>
-                         <!-- 
-                            FIXED: 
-                            1. Changed id from "rules-link-desktop" to "organizer-link-desktop"
-                            2. Changed text from "organizer" to "Organizer"
-                        -->
                         <li><a id="organizer-link-desktop" href="#" class="font-transformer tracking-wider text-sm py-2 px-4 rounded-md text-gray-600 border border-transparent hover:bg-gray-100 hover:text-gray-900 transition-all duration-300">Organizer</a></li>
                     </ul>
                 </nav>
@@ -322,7 +299,7 @@
                 
                 <div class="animate-fade-in-up mt-12 sm:mt-20">
                     <h1 class="font-transformer text-4xl sm:text-5xl md:text-8xl font-extrabold text-gray-900 leading-tight tracking-wider">
-                        <span class="text-gray-700">VIBE CODING:</span> TRANSFORM
+                        <span class="text-gray-700">VIBE CODING:</span>
                     </h1>
                     <p class="text-xl sm:text-2xl md:text-3xl text-gray-600 mt-4 font-inter delay-1 animate-fade-in-up subtitle-tech">
                         Energize Your Creations. Transmit Your Code.
@@ -335,7 +312,7 @@
                 
                     <div id="start-button-container" class="relative z-20">
                         <h2 class="text-xl sm:text-2xl font-bold font-transformer text-grey-600 mb-4">INITIATE SEQUENCE</h2>
-                        <p class="text-gray-700 mb-6 text-base sm:text-lg">Activate the 48-hour submission window. This action is irreversible.</p>
+                        <p class="text-gray-700 mb-6 text-base sm:text-lg">Activate the 10-hour submission window. This action is irreversible.</p>
                         <button id="start-button" class="font-transformer btn-classic btn-lg btn-deploy">
                             DEPLOY COUNTDOWN
                         </button>
@@ -365,15 +342,13 @@
                             </div>
                         </div>
                         
-                        <button id="reset-button" class="absolute top-2 right-2 text-xs text-gray-500 hover:text-red-600 transition-colors p-1 rounded bg-gray-100/80 hover:bg-gray-200/80 z-30">
-                            [DEV: Reset Timer]
-                        </button>
+                    
                         
                     </div>
                     
                     <div id="timer-ended" class="relative z-20 hidden p-6 rounded-lg bg-red-100 border border-red-300">
                         <h2 class="text-2xl sm:text-3xl font-bold font-transformer text-red-700 tracking-wider">TRANSMISSION OVERRIDE</h2>
-                        <p class="text-base sm:text-lg text-red-800 mt-2">The 48-hour submission window has closed. Data streams are terminated.</p>
+                        <p class="text-base sm:text-lg text-red-800 mt-2">The 10-hour submission window has closed. Data streams are terminated.</p>
                     </div>
                 </section>
                 
@@ -392,8 +367,7 @@
                         <section class="max-w-4xl w-full mx-auto">
                             <h2 class="text-2xl font-bold font-transformer text-white mb-4">MISSION BRIEFING</h2>
                             <div class="space-y-4 text-gray-300">
-                                <p>VIBE CODING is more than a hackathon—it's a 48-hour proving ground. We're calling all creators, coders, and designers to plug into the matrix, energize their ideas, and transmit a project that pushes the boundaries of their creativity.</p>
-                                <p>This year's theme is <strong class="text-yellow-400 font-bold">"TRANSFORM"</strong>. We challenge you to interpret this directive in any way you see fit. Show us a data transformation, a UI that transforms, a personal story of transformation, or... well, you know the theme. <em>Autobots, roll out!</em></p>
+                                <p>VIBE CODING is more than a hackathon—it's a 10-hour proving ground. We're calling all creators, coders, and designers to plug into the matrix, energize their ideas, and transmit a project that pushes the boundaries of their creativity.</p>
                                 <p class="flex-grow">Whether you're a lone wolf or part of a squad, this is your chance to build something awesome. The clock is ticking.</p>
                             </div>
                         </section>
@@ -511,7 +485,7 @@
                 <div class="mt-3 flex flex-col sm:flex-row justify-center items-center space-y-1 sm:space-y-0 sm:space-x-4">
                     <a href="#" id="tools-link" class="hover:text-gray-900 transition-colors">Tools</a>
                     <span class="text-gray-400 hidden sm:block">|</span>
-                    <a href="#" id="organizers-link" class="hover:text-gray-900 transition-colors">Organizers</a>
+                    <a href="#" id="organizers-link" class="hover:text-gray-900 transition-colors">TEAM</a>
                     <span class="text-gray-400 hidden sm:block">|</span>
                     <a href="#" id="prizes-link" class="hover:text-gray-900 transition-colors">Prizes</a>
                 </div>
@@ -605,8 +579,8 @@
                     <p>This event is brought to you by a collaboration between the <strong class="text-gray-900">Mozilla Club</strong> and the <strong class="text-gray-900">Phoenix Club</strong> at Vibe Coding College.</p>
                     <h4 class="font-transformer text-lg text-gray-900 pt-2">Core Team</h4>
                     <ul class="list-disc list-inside space-y-2">
-                        <li><strong>Join Secratory:</strong>YASH SINGHAL</li>
-                        <li><strong>Join Secratory:</strong> Vardhman jain</li>
+                        <li><strong>Joint Secratory:</strong>YASH SINGHAL</li>
+                        <li><strong>Joint Secratory:</strong> Vardhman jain</li>
                         <li><strong>Devloper: </strong>Yash Vijayvargiya</li>
                     </ul>
                 </div>
@@ -694,12 +668,6 @@
             </div>
         </div>
     </div>
-
-    <!-- 
-      This is the script for the countdown timer. 
-      It's now correctly separated from the submission logic.
-      MODIFIED: It is now a "module" to allow it to import Firebase.
-    -->
     <script type="module" src="countdown.js" defer></script> 
     
     <script>

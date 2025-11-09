@@ -1,4 +1,3 @@
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { 
     getAuth, 
@@ -14,6 +13,7 @@ import {
     setLogLevel
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+// --- PASTE FIREBASE CONFIG HERE ---
 const firebaseConfig = {
   apiKey: "AIzaSyBTDlUMbYV6vSj91ul35yuCow8IhK2-WH8",
   authDomain: "chromameet-a2im7.firebaseapp.com",
@@ -22,7 +22,9 @@ const firebaseConfig = {
   messagingSenderId: "272766220764",
   appId: "1:272766220764:web:c58a26015523d9900df719"
 };
+// --- END FIREBASE CONFIG ---
 
+// --- HTML Elements ---
 const startButtonContainer = document.getElementById('start-button-container');
 const timerDisplay = document.getElementById('timer-display');
 const timerEnded = document.getElementById('timer-ended');
@@ -34,39 +36,107 @@ const timerMinutes = document.getElementById('timer-minutes');
 const timerSeconds = document.getElementById('timer-seconds');
 
 // --- Constants ---
-const COUNTDOWN_DURATION = 48 * 60 * 60 * 1000; 
+// Updated to 10 hours
+const COUNTDOWN_DURATION = 10 * 60 * 60 * 1000; 
 let countdownInterval;
 
-
-const appId = firebaseConfig.projectId || (typeof __app_id !== 'undefined' ? __app_id : 'default-app-id');
+// --- Firebase Vars ---
+let app, auth, db, timerDocRef;
+let appId = 'default-app-id'; // Default
 const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
-let app, auth, db;
-
-
-if (!firebaseConfig.apiKey || firebaseConfig.apiKey.includes("YOUR_API_KEY")) {
-    console.error("Firebase config is missing or is still a placeholder.");
-
-    if(startButtonContainer) {
-        startButtonContainer.innerHTML = `<p class="text-red-600 font-bold">TIMER ERROR: Firebase is not configured.</p>`;
-        startButtonContainer.classList.remove('hidden');
-    }
-} else {
+// Function to initialize Firebase and auth
+async function initializeFirebase() {
+    // Try to get config from global variable or hard-coded const
+    let configToUse;
     try {
-        app = initializeApp(firebaseConfig);
+        if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+            configToUse = JSON.parse(__firebase_config);
+            console.log("Using global __firebase_config.");
+        } else if (typeof firebaseConfig !== 'undefined') {
+            console.log("Using hard-coded firebaseConfig.");
+            configToUse = firebaseConfig; // Use the one from the top of the file
+        } else {
+            console.error("Firebase config is not defined globally or hard-coded.");
+            throw new Error("Firebase config is not set.");
+        }
+    } catch (e) {
+        console.error("Error parsing Firebase config:", e);
+        if(startButtonContainer) {
+            startButtonContainer.innerHTML = `<p class="text-red-600 font-bold">TIMER ERROR: Firebase config is invalid.</p>`;
+            startButtonContainer.classList.remove('hidden');
+        }
+        return;
+    }
+
+    if (!configToUse || !configToUse.apiKey || configToUse.apiKey.includes("YOUR_API_KEY")) {
+        console.error("Firebase config is missing or is still a placeholder.");
+        if(startButtonContainer) {
+            startButtonContainer.innerHTML = `<p class="text-red-600 font-bold">TIMER ERROR: Firebase is not configured.</p>`;
+            startButtonContainer.classList.remove('hidden');
+        }
+        return;
+    }
+
+    try {
+        app = initializeApp(configToUse);
         auth = getAuth(app);
         db = getFirestore(app);
         setLogLevel('Debug'); 
+
+        // Get app ID from global or fallback
+        appId = typeof __app_id !== 'undefined' ? __app_id : configToUse.projectId || 'default-app-id';
+        
+        // Define doc ref here, after db and appId are set
+        timerDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'contest_timer', 'main');
+
+        console.log("Firebase initialized. App ID:", appId);
+        authenticateUser(); // Start auth process
     } catch (e) {
         console.error("Firebase initialization failed:", e);
+         if(startButtonContainer) {
+            startButtonContainer.innerHTML = `<p class="text-red-600 font-bold">TIMER ERROR: Firebase init failed.</p>`;
+            startButtonContainer.classList.remove('hidden');
+        }
     }
 }
 
+// Function to handle authentication
+function authenticateUser() {
+    if (!auth) {
+        console.error("Auth is not initialized.");
+        return;
+    }
 
-const timerDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'contest_timer', 'main');
+    console.log("Authenticating...");
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            console.log("User authenticated:", user.uid);
+            initializeTimerLogic(); // User is ready, start timer logic
+        } else {
+            console.log("No user found, signing in...");
+            try {
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                    console.log("Signed in with custom token.");
+                } else {
+                    await signInAnonymously(auth);
+                    console.log("Signed in anonymously.");
+                }
+                // onAuthStateChanged will trigger again with the new user,
+                // and initializeTimerLogic will be called then.
+            } catch (error) {
+                console.error("Authentication failed: ", error);
+                 if(startButtonContainer) {
+                    startButtonContainer.innerHTML = `<p class="text-red-600 font-bold">TIMER ERROR: Auth failed.</p>`;
+                    startButtonContainer.classList.remove('hidden');
+                }
+            }
+        }
+    });
+}
 
-
-
+// --- UI State Functions ---
 const showTimerState = () => {
     if (startButtonContainer) startButtonContainer.classList.add('hidden');
     if (timerEnded) timerEnded.classList.add('hidden');
@@ -89,6 +159,7 @@ const showStartState = () => {
 
 const pad = (num) => String(num).padStart(2, '0');
 
+// --- Timer Logic ---
 const startTimer = (endTime) => {
     if (countdownInterval) {
         clearInterval(countdownInterval);
@@ -114,13 +185,17 @@ const startTimer = (endTime) => {
         }
     };
 
-    updateTimer();
+    updateTimer(); // Initial call
     countdownInterval = setInterval(updateTimer, 1000);
 };
 
-
+// Main function to attach listeners and sync with Firestore
 const initializeTimerLogic = () => {
     console.log("Initializing Timer Logic...");
+    if (!timerDocRef) {
+        console.error("timerDocRef is not defined. Firestore might not be initialized.");
+        return;
+    }
 
     onSnapshot(timerDocRef, (docSnap) => {
         if (docSnap.exists() && docSnap.data().endTime) {
@@ -134,7 +209,7 @@ const initializeTimerLogic = () => {
                 startTimer(endTime);
             }
         } else {
-    
+            // No timer data or it's null
             if (countdownInterval) clearInterval(countdownInterval);
             showStartState();
         }
@@ -165,8 +240,10 @@ const initializeTimerLogic = () => {
                 if (countdownInterval) {
                     clearInterval(countdownInterval);
                 }
-                await setDoc(timerDocRef, { endTime: null });
+                // Set endTime to null to reset
+                await setDoc(timerDocRef, { endTime: null }); 
                 console.log("Timer reset in Firestore.");
+                // Snapshot listener will catch this change and call showStartState
             } catch (e) {
                 console.error("Error resetting timer in Firestore: ", e);
             }
@@ -174,31 +251,7 @@ const initializeTimerLogic = () => {
     }
 };
 
-
-if (auth) { 
-    console.log("Authenticating...");
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-           
-            console.log("User authenticated:", user.uid);
-            initializeTimerLogic(); 
-        } else {
-            console.log("No user found, signing in...");
-            try {
-                
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken);
-                    console.log("Signed in with custom token.");
-                } else {
-                   
-                    await signInAnonymously(auth);
-                    console.log("Signed in anonymously.");
-                }
-               
-            } catch (error) {
-                console.error("Authentication failed: ", error);
-            }
-        }
-    });
-}
-
+// --- Start Application ---
+// Call the main initialization function when the script loads
+// It's better to wait for DOM content to be loaded, but this works too
+initializeFirebase();
